@@ -6,7 +6,7 @@ using System;
 using System.Reflection;
 using System.Windows;
 
-namespace Main
+namespace Sample1
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -26,7 +26,10 @@ namespace Main
             this.Container.Resolve<Views.MainWindow>();
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterInstance<TestData>();
+        }
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する
         protected override void ConfigureViewModelLocator()
