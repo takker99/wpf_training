@@ -26,10 +26,8 @@ namespace Sample1
             this.Container.Resolve<Views.MainWindow>();
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterInstance<TestData>();
-        }
+        // データをDI container に登録する
+        protected override void RegisterTypes(IContainerRegistry containerRegistry) => containerRegistry.RegisterInstance<TestData>(DataLoader.Load(this.dataFilePath));
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する
         protected override void ConfigureViewModelLocator()
