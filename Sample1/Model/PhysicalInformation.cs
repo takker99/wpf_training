@@ -1,6 +1,6 @@
 using System;
 
-namespace Sample1
+namespace Sample1.Model
 {
     [System.Runtime.Serialization.DataContract]
     public class PhysicalInformation : Prism.Mvvm.BindableBase
