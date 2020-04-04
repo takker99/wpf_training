@@ -3,6 +3,15 @@ namespace Sample1
     // Service 層に位置するクラス
     public static class DataLoader
     {
+        /// <summary>データをロードします。</summary>
+        /// <param name="dataFilePath">データファイルのフルパスを表す文字列。</param>
+        /// <returns>ロードしたデータを表すAppData。</returns>
+        public static Model.AppData Load(string dataFilePath)
+        {
+            if (dataFilePath == string.Empty) { return DataLoader._createNewTestData(); }
+            else { return DataLoader._loadFromFile(dataFilePath); }
+        }
+
         /// <summary>新規テストデータを作成します。</summary>
         /// <returns>新規テストデータを表すAppData。</returns>
         private static Model.AppData _createNewTestData()
@@ -25,15 +34,6 @@ namespace Sample1
         /// <summary>データファイルからロードします。</summary>
         /// <param name="dataFilePath">データファイルのフルパスを表す文字列。</param>
         /// <returns>データファイルからロードしたAppData。</returns>
-        private static Model.AppData loadFromFile(string dataFilePath) => new Model.AppData();
-
-        /// <summary>データをロードします。</summary>
-        /// <param name="dataFilePath">データファイルのフルパスを表す文字列。</param>
-        /// <returns>ロードしたデータを表すAppData。</returns>
-        public static Model.AppData Load(string dataFilePath)
-        {
-            if (dataFilePath == string.Empty) { return DataLoader._createNewTestData(); }
-            else { return DataLoader.loadFromFile(dataFilePath); }
-        }
+        private static Model.AppData _loadFromFile(string dataFilePath) => new Model.AppData();
     }
 }
