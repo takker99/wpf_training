@@ -10,16 +10,12 @@ namespace NavigationTree.ViewModels
 {
     public class NavigationTree : BindableBase
     {
-        private string _message;
-        public string Message
+        public NavigationTree(Sample1.Model.AppData appData)
         {
-            get { return _message; }
-            set { SetProperty(ref _message, value); }
+            // DI container からAppDataを受け取る
+            this._appData = appData;
         }
 
-        public NavigationTree()
-        {
-            Message = "NavigationTree from your Prism Module";
-        }
+        private Sample1.Model.AppData _appData = null;
     }
 }
