@@ -19,7 +19,7 @@ namespace NavigationTree.ViewModels
         public object SourceData { get; } = null;
 
         /// <summary>TreeViewItem のImageを取得します</summary>
-        public ReactiveProperty<System.Windows.Media.ImageSource> ItemImage { get; }
+        public ReactivePropertySlim<System.Windows.Media.ImageSource> ItemImage { get; }
 
         /// <summary>コンストラクタ</summary>
         /// <param name="treeItem">TreeViewItem の元データを表すobject。</param>
@@ -56,7 +56,7 @@ namespace NavigationTree.ViewModels
             }
 
             var image = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/" + imageFileName, UriKind.Absolute));
-            this.ItemImage = new ReactiveProperty<System.Windows.Media.ImageSource>(image).AddTo(this._disposables);
+            this.ItemImage = new ReactivePropertySlim<System.Windows.Media.ImageSource>(image).AddTo(this._disposables);
         }
 
         /// <summary>オブジェクトを破棄します。</summary>
