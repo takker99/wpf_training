@@ -8,9 +8,4 @@
         <PackageReference Include="Prism.Unity" Version="7.2.0.1422" />
         <PackageReference Include="ReactiveProperty" Version="6.2.0" />
     </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Model\Model.csproj" />
-        <ProjectReference Include="..\Service\Service.csproj" />
-        <ProjectReference Include="..\NavigationTree\NavigationTree.csproj" />
-    </ItemGroup>
 </Project>
