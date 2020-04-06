@@ -15,7 +15,7 @@
             <ContentControl Grid.Column="0" prism:RegionManager.RegionName="NaviTree" />
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
             <ContentControl Grid.Column="2" prism:RegionManager.RegionName="EditorTree" />
-    </Grid>
+        </Grid>
         <StatusBar Grid.Row="2" >
             <StatusBarItem />
             <StatusBarItem />
