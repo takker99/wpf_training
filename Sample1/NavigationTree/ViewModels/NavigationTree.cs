@@ -1,19 +1,13 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Reactive.Bindings;
-using Reactive.Bindings.Extension;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Reactive.Bindings.Extensions;
 
 namespace NavigationTree.ViewModels
 {
     public class NavigationTree : BindableBase, System.IDisposable
     {
         // Tree View は user が操作できないので read only で良い。
-        public ReadOnlyReactiveCollection<TreeViewItemViewModel> TreeNodes { get; }
+        public ReadOnlyReactiveCollection<TreeViewItem> TreeNodes { get; }
 
         public NavigationTree(Sample1.Model.AppData appData)
         {
@@ -21,41 +15,45 @@ namespace NavigationTree.ViewModels
             this._appData = appData;
             this._rootNode = this._convert(this._appData); // TreeView に渡せる形式に変換する
 
-            var col = new System.Collections.ObjectModel.ObservableCollection<TreeViewItemViewModel>();
-            col.Add(this._rootNode);
+            var col = new System.Collections.ObjectModel.ObservableCollection<TreeViewItem>
+            {
+                this._rootNode
+            };
             this.TreeNodes = col.ToReadOnlyReactiveCollection().AddTo(this._disposables);
         }
 
-        // AppData を TreeViewItemViewModel の形式に変換する
-        private TreeViewItemViewModel _convert(Sample1.Model.AppData appData)
+        // AppData を TreeViewItem の形式に変換する
+        private TreeViewItem _convert(Sample1.Model.AppData appData)
         {
-            var rootNode = new TreeViewItemViewModel(appData.Student);
+            var rootNode = new TreeViewItem(appData.Student);
 
             // 身体測定データの tree を作る
-            var physicalClass = new TreeViewItemViewModel("身体測定");
+            var physicalClass = new TreeViewItem("身体測定");
             rootNode.Children.Add(physicalClass);
 
             foreach (var item in appData.Physicals)
             {
-                var child = new TreeViewItemViewModel(item);
+                var child = new TreeViewItem(item);
                 physicalClass.Children.Add(child);
             }
 
             // 試験結果データの tree を作る
-            var testPointClass = new TreeViewItemViewModel("試験結果");
+            var testPointClass = new TreeViewItem("試験結果");
             rootNode.Children.Add(testPointClass);
 
             foreach (var item in appData.TestPoints)
             {
-                var child = new TreeViewItemViewModel(item);
+                var child = new TreeViewItem(item);
                 testPointClass.Children.Add(child);
             }
 
             return rootNode;
         }
 
+        void System.IDisposable.Dispose() => this._disposables.Dispose();
+
         private Sample1.Model.AppData _appData = null;
-        private TreeViewItemViewModel _rootNode = null;
-        private var _disposables = new System.Reactive.Disposables.CompositeDisposable();
+        private TreeViewItem _rootNode = null;
+        private System.Reactive.Disposables.CompositeDisposable _disposables = new System.Reactive.Disposables.CompositeDisposable();
     }
 }

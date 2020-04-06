@@ -2,7 +2,7 @@
     <Grid>
         <TreeView ItemsSource="{Binding TreeNodes}">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type vm:TreeViewItemViewModel}" ItemsSource="{Binding Children}">
+                <HierarchicalDataTemplate DataType="{x:Type vm:TreeViewItem}" ItemsSource="{Binding Children}">
                     <TextBlock Text="{Binding ItemText.Value}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>

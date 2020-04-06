@@ -3,13 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{D993EEC1-3D92-48B3-8667-7C32E2FA298B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Main", "Main\Main.csproj", "{D993EEC1-3D92-48B3-8667-7C32E2FA298B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationTree", "NavigationTree\NavigationTree.csproj", "{F058168A-38B9-45D7-9178-5C2244C06AD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigationTree", "NavigationTree\NavigationTree.csproj", "{F058168A-38B9-45D7-9178-5C2244C06AD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{AAD05D5D-9631-49D6-87EC-539A3C1A4EAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{AAD05D5D-9631-49D6-87EC-539A3C1A4EAF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4CD65271-366E-41EF-A719-AFE64A3A2602} = {4CD65271-366E-41EF-A719-AFE64A3A2602}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{4CD65271-366E-41EF-A719-AFE64A3A2602}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{4CD65271-366E-41EF-A719-AFE64A3A2602}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
