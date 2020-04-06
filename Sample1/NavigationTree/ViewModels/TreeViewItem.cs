@@ -18,6 +18,9 @@ namespace NavigationTree.ViewModels
         /// <summary>TreeViewItem の元データを取得します。</summary>
         public object SourceData { get; } = null;
 
+        /// <summary>TreeViewItem のImageを取得します</summary>
+        public ReactiveProperty<System.Windows.Media.ImageSource> ItemImage { get; }
+
         /// <summary>コンストラクタ</summary>
         /// <param name="treeItem">TreeViewItem の元データを表すobject。</param>
         public TreeViewItem(object treeItem)
@@ -25,6 +28,7 @@ namespace NavigationTree.ViewModels
             this.Children = new ReactiveCollection<TreeViewItem>().AddTo(this._disposables);
 
             this.SourceData = treeItem;
+            var imageFileName = string.Empty;
 
             // read only reactive propertiesは
             // 1. ObserveProperty
@@ -34,18 +38,25 @@ namespace NavigationTree.ViewModels
             {
                 case Sample1.Model.PersonalInformation p:
                     this.ItemText = p.ObserveProperty(x => x.Name).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                    imageFileName = "standing-man.png";
                     break;
                 case Sample1.Model.PhysicalInformation phy:
-                    this.ItemText = phy.ObserveProperty(x => x.MeasurementDate).Select(d => d.HasValue ? d.Value.ToString("yyy年MM月dd日") : "新しい測定").ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                    ItemText = phy.ObserveProperty(x => x.MeasurementDate).Select(d => d.HasValue ? d.Value.ToString("yyy年MM月dd日") : "新しい測定").ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                    imageFileName = "hearts.png";
                     break;
                 case Sample1.Model.TestPointInformation test:
-                    this.ItemText = test.ObserveProperty(x => x.TestDate).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                    ItemText = test.ObserveProperty(x => x.TestDate).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                    imageFileName = "test.png";
                     break;
                 case string s:
                     // このブロックだけ、thisをソースとして用いている。
                     this.ItemText = this.ObserveProperty(x => x.SourceData).Select(v => v as string).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                    imageFileName = s == "身体測定" ? "user-folder.png" : "test-folder.png";
                     break;
             }
+
+            var image = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/" + imageFileName, UriKind.Absolute));
+            this.ItemImage = new ReactiveProperty<System.Windows.Media.ImageSource>(image).AddTo(this._disposables);
         }
 
         /// <summary>オブジェクトを破棄します。</summary>
