@@ -9,6 +9,11 @@
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger>
+                    <ri:EventToReactiveCommand Command="{Binding SelectedItemChanged}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </TreeView>
     </Grid>
 </UserControl>

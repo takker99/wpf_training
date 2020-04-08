@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using System.Windows;
+using Prism.Mvvm;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
@@ -8,6 +9,8 @@ namespace NavigationTree.ViewModels
     {
         // Tree View は user が操作できないので read only で良い。
         public ReadOnlyReactiveCollection<TreeViewItem> TreeNodes { get; }
+
+        public ReactiveCommand<RoutedPropertyChangedEventArgs<object>> SelectedItemChanged { get; }
 
         public NavigationTree(Sample1.Model.AppData appData)
         {
@@ -20,6 +23,8 @@ namespace NavigationTree.ViewModels
                 this._rootNode
             };
             this.TreeNodes = col.ToReadOnlyReactiveCollection().AddTo(this._disposables);
+
+            this.SelectedItemChanged = new ReactiveCommand<RoutedPropertyChangedEventArgs<object>>().WithSubscribe(e => { }).AddTo(this._disposables);
         }
 
         // AppData を TreeViewItem の形式に変換する
