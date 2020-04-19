@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.Unity" Version="7.2.0.1422" />
+    <PackageReference Include="ReactiveProperty" Version="6.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sample2.Models\Sample2.Models.csproj" />
+    <ProjectReference Include="..\Sample2.Views\Sample2.Views.csproj" />
+  </ItemGroup>
+
+</Project>
