@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Sample2.Main
 {
@@ -8,9 +7,6 @@ namespace Sample2.Main
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
     }
 }
