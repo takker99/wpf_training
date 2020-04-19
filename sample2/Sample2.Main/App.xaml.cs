@@ -17,12 +17,14 @@ namespace Sample2
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
 
-        // 手動でView - ViewModel を関連付ける
+        // 手動でViewとViewModel を関連付ける
         protected override void ConfigureViewModelLocator()
         {
             base.ConfigureViewModelLocator();
 
             ViewModelLocationProvider.Register<Views.MainWindow, ViewModels.MainWindow>();
+            ViewModelLocationProvider.Register<Views.Operand, ViewModels.Operand>();
+            ViewModelLocationProvider.Register<Views.Answer, ViewModels.Answer>();
         }
     }
 }

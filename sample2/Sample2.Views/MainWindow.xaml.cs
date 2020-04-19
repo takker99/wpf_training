@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Prism.Regions;
 
 namespace Sample2.Views
 {
@@ -7,6 +8,16 @@ namespace Sample2.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow() => InitializeComponent();
+        public MainWindow(IRegionManager regionManager)
+        {
+            this.InitializeComponent();
+
+            // RegionにViewを登録する
+            // 
+            // ModuleなしでViewをRegionに登録するには、
+            // code behindを使用する必要がある
+            regionManager.RegisterViewWithRegion("OperandRegion", typeof(Operand));
+            regionManager.RegisterViewWithRegion("AnswerRegion", typeof(Answer));
+        }
     }
 }
