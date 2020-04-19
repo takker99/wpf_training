@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" FontSize="40">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
