@@ -5,6 +5,6 @@ namespace Sample2.ViewModels
 {
     public class Answer : BindableBase
     {
-        public ReactivePropertySlim<string> Text { get; }
+        public ReactivePropertySlim<string> Text { get; } = new ReactivePropertySlim<string>("4");
     }
 }
