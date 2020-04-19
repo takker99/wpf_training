@@ -9,6 +9,14 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ContentControl Grid.Column="0" Margin="20"
+            prism:RegionManager.RegionName="OperandRegion" />
+        <ContentControl Grid.Column="1" Margin="20"
+            prism:RegionManager.RegionName="AnswerRegion" />
     </Grid>
 </Window>
 
