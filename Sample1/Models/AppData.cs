@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace Sample1.Model
+namespace Sample1.Models
 {
     [System.Runtime.Serialization.DataContract]
     public class AppData
