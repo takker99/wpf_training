@@ -9,6 +9,9 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid ShowGridLines="True">
+        <Grid.InputBindings>
+            <KeyBinding Gesture="Ctrl+J" Command="{Binding ShowDialogCommand}" />
+        </Grid.InputBindings>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
@@ -19,7 +22,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                Text="R =" />
+                Text="N =" />
             <TextBox Grid.Column="1"
                 HorizontalAlignment="Stretch" VerticalAlignment="Center"
                 Text="{Binding Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

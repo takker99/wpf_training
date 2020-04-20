@@ -9,6 +9,9 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid ShowGridLines="True">
+        <Grid.InputBindings>
+            <KeyBinding Gesture="Ctrl+K" Command="{Binding ShowDialogCommand}" />
+        </Grid.InputBindings>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
