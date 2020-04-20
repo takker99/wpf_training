@@ -22,7 +22,8 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Width="50"
-            Margin="5,5,5,5" />
+            Margin="5,5,5,5"
+                Command="{Binding SaveTextCommand}"/>
         <CheckBox Grid.Row="0" Grid.Column="1" Content="Lock input"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
