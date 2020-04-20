@@ -4,9 +4,10 @@ using System.Reactive.Linq;
 
 using Prism.Events;
 using Prism.Mvvm;
-
+using Prism.Services.Dialogs;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using Sample2.Extensions;
 
 namespace Sample2.ViewModels
 {
@@ -16,8 +17,9 @@ namespace Sample2.ViewModels
         // Viewから値を変更できるようにするので、ReadOnlyReactivePropertyも使わない
         [Required, Range(-10000,10000)]
         public ReactiveProperty<string> Text { get; }
+        public ReactiveCommand<object> ShowDialogCommand { get; }
 
-        public Operand(IEventAggregator eventAggregator)
+        public Operand(IEventAggregator eventAggregator, IDialogService dialogService)
         {
             // SetValidateAttribute:
             //
@@ -26,6 +28,10 @@ namespace Sample2.ViewModels
             this.Text = new ReactiveProperty<string>("2")
                 .SetValidateAttribute(() => this.Text)
                 .AddTo(this._disposables);
+            this._dialogService = dialogService;
+            this.ShowDialogCommand
+                = new ReactiveCommand()
+                .WithSubscribe(() => this._dialogService.ShowConfirmationMessage($"N = {this.Text.Value}"));
 
             // ViewModel間でデータをやり取りするためにEventAggregatorを使う
             Observable
@@ -51,6 +57,7 @@ namespace Sample2.ViewModels
 
         void System.IDisposable.Dispose() => this._disposables.Dispose();
 
+        private IDialogService _dialogService;
         // observableのゴミ箱
         private readonly System.Reactive.Disposables.CompositeDisposable _disposables = new System.Reactive.Disposables.CompositeDisposable();
     }

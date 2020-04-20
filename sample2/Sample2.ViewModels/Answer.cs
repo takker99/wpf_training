@@ -1,17 +1,25 @@
+using System.Windows.Forms;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using Sample2.Extensions;
 
 namespace Sample2.ViewModels
 {
     public class Answer : BindableBase,System.IDisposable
     {
         public ReactivePropertySlim<string> Text { get; }
+        public ReactiveCommand<object> ShowDialogCommand { get; }
 
-        public Answer(IEventAggregator eventAggregator)
+        public Answer(IEventAggregator eventAggregator, IDialogService dialogService)
         {
             this.Text = new ReactivePropertySlim<string>("4").AddTo(this._disposables);
+            this._dialogService = dialogService;
+            this.ShowDialogCommand
+                = new ReactiveCommand()
+                .WithSubscribe(() => this._dialogService.ShowConfirmationMessage($"N^2 = {this.Text.Value}"));
 
             eventAggregator.
                GetEvent<PubSubEvent<double>>()
@@ -24,7 +32,8 @@ namespace Sample2.ViewModels
 
         void System.IDisposable.Dispose() => this._disposables.Dispose();
 
-        // ƒSƒ~” 
+        private IDialogService _dialogService;
+        // ã‚´ãƒŸç®±
         private readonly System.Reactive.Disposables.CompositeDisposable _disposables = new System.Reactive.Disposables.CompositeDisposable();
     }
 }
