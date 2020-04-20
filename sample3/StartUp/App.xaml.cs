@@ -15,7 +15,9 @@ namespace Sample3
         protected override Window CreateShell()
             => this.Container.Resolve<StartUp.Views.MainWindow>();
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
+        // Modelを登録する
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+            => containerRegistry.RegisterInstance<Models.IStreamManager>(new Models.FileManager(this._filePath));
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する
         protected override void ConfigureViewModelLocator()
@@ -32,5 +34,7 @@ namespace Sample3
                 return Type.GetType(viewModelName);
             });
         }
+
+        private readonly string _filePath = @"temp.txt";
     }
 }
