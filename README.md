@@ -37,3 +37,19 @@ Prism+ReactivePropertyで実装しなおせばかなり簡単になりそうだ�
 たしかに簡単に作成することができた。ついでに非同期I/Oを使ってみた。またfont sizeを変えられるようにもした。
 
 ただModelの設計がうまく行かなかった (RegisterTypeでinterfaceと一緒に登録したかったが、うまく動かなかった)。[こちらのサイト](https://elf-mission.net/wpf-prism-index/)で一通り学習してから、modelを作り直してみることにする。
+
+### sample4
+
+[Nine Works　asyncとIProgressを使ってプログレスバーを操作する](http://nineworks2.blog.fc2.com/blog-entry-4.html)をもとに作成したprogram
+
+Livetを使用していた。その部分だけをPrism+ReactivePropertyで書き換えた。
+
+全部実装し終えたと思ったら、なぜかViewModelLocatorで実行時エラーが発生してしまった。そのあたりを重点的に、sample3のコードと突き合わせて間違いを探してみたが、全くわからなかった。仕方なく前のcommitまで巻き戻し、その後少しずつ実行とcommitを繰り返した。
+
+その結果、原因がData BindingのValueのつけ忘れだということがわかった。こッッッんな初歩的なミスに気づかないとか……。まあよくあることだけど。
+
+今後はちゃんと
+1. 少し実装
+2. **コードの実行**
+3. commit
+を繰り返すようにしよう。
