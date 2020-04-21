@@ -18,7 +18,7 @@ namespace Sample3.Models
             byte[] encodedText = Encoding.Unicode.GetBytes(text);
 
             using (var sourceStream = new FileStream(this._filePath,
-                FileMode.Append, FileAccess.Write, FileShare.None,
+                FileMode.Create, FileAccess.Write, FileShare.None,
                 bufferSize: 4096, useAsync: true))
             {
                 await sourceStream.WriteAsync(encodedText, 0, encodedText.Length);
