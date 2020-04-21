@@ -48,7 +48,7 @@ namespace Sample4.StartUp.ViewModels
 
         private readonly Models.IHeavyWorker _heavyWorker;
         private readonly Progress<Models.ProgressInfo> _progressInfo;
-        private System.Reactive.Disposables.CompositeDisposable _disposables 
+        private System.Reactive.Disposables.CompositeDisposable _disposables
             = new System.Reactive.Disposables.CompositeDisposable(); // ゴミ箱
     }
 }
