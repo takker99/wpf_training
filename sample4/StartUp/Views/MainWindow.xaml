@@ -7,8 +7,19 @@
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="350" Width="525">
+        Title="{Binding Title}" Height="80" Width="100">
     <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
+        <ProgressBar Grid.Row="0" Minimum="0" Maximum="100" Value="{Binding ProgressValue}"/>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Button Content="処理開始" Command="{Binding RunHeavyWorkCommand}"/>
+            <Button Content="キャンセル" Command="{Binding CancelHeavyWorkCommand}"/>
+            <TextBlock Text="{Binding Message}"/>
+        </StackPanel>
     </Grid>
 </Window>
