@@ -355,3 +355,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# only for this repository
+#
+# for sample3
+temp.txt
