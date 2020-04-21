@@ -3,6 +3,7 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sample3.StartUp.ViewModels
 {
@@ -11,8 +12,9 @@ namespace Sample3.StartUp.ViewModels
         // null合体代入演算子を用いた以下の記法については次を参照：
         // - https://qiita.com/okazuki/items/2f0832133eac4427b72c
 
-        public ReactivePropertySlim<string> Text { get; }
+        public ReactivePropertySlim<string> Text { get; private set; }
         public AsyncReactiveCommand<object> SaveTextCommand { get; }
+        public AsyncReactiveCommand<object> LoadTextCommand { get; }
 
         public MainWindow(Models.IStreamManager streamManager)
         {
@@ -21,17 +23,21 @@ namespace Sample3.StartUp.ViewModels
 
             this.Text = new ReactivePropertySlim<string>("Write any text here!")
             .AddTo(this._disposable);
-            //this.Text=new ReactivePropertySlim<string>(await this._streamManager.ReadTextAsync())
 
             this.SaveTextCommand = new AsyncReactiveCommand()
+                // UI threadとは別のthreadで、ファイルを書き出す
                 .WithSubscribe(async _ => await this._streamManager.WriteTextAsync(this.Text.Value).ConfigureAwait(false))
                 .AddTo(this._disposable);
 
+            // UI 初期化時にfileを読み込む
+            this.LoadTextCommand = new AsyncReactiveCommand()
+                .WithSubscribe(async _ => this.Text.Value=await this._streamManager.ReadTextAsync().ConfigureAwait(false))
+                .AddTo(this._disposable);
         }
 
-        private System.Reactive.Disposables.CompositeDisposable _disposable 
+        private System.Reactive.Disposables.CompositeDisposable _disposable
             = new System.Reactive.Disposables.CompositeDisposable();
 
-        private Models.IStreamManager _streamManager;
+        private readonly Models.IStreamManager _streamManager;
     }
 }

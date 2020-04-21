@@ -6,6 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:ri="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}" Height="450" Width="800">
     <Grid >
@@ -16,6 +18,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button Grid.Row="0" Grid.Column="0" Content="Save"
@@ -23,12 +26,18 @@
             VerticalAlignment="Top"
             Width="50"
             Margin="5,5,5,5"
-                Command="{Binding SaveTextCommand}"/>
-        <CheckBox Grid.Row="0" Grid.Column="1" Content="Lock input"
+            Command="{Binding SaveTextCommand}"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="Load"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Width="50"
+            Margin="5,5,5,5"
+            Command="{Binding LoadTextCommand}"/>
+        <CheckBox Grid.Row="0" Grid.Column="2" Content="Lock input"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Margin="5,7,5,5" />
-        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
             Margin="5,5,5,5"
             TextWrapping="Wrap"
             AcceptsReturn="True"
