@@ -4,9 +4,8 @@ using Prism.Unity;
 using System;
 using System.Reflection;
 using System.Windows;
-using Sample4.StartUp.Views;
 
-namespace Sample4.StartUp
+namespace Sample4
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -14,7 +13,7 @@ namespace Sample4.StartUp
     public partial class App : PrismApplication
     {
         protected override Window CreateShell()
-            => this.Container.Resolve<Views.MainWindow>();
+            => this.Container.Resolve<StartUp.Views.MainWindow>();
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
 
