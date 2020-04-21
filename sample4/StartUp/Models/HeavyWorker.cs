@@ -23,7 +23,7 @@ namespace Sample4.StartUp.Models
                 {
                     await Task.Run(() =>
                     {
-                        foreach (var v in Enumerable.Range(1, 100))
+                        foreach (int v in Enumerable.Range(1, 100))
                         {
                             // キャンセル処理
                             this._cancellationTokenSource.Token.ThrowIfCancellationRequested();
