@@ -10,12 +10,13 @@
         xmlns:ri="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}" Height="450" Width="800">
-    <Grid >
+    <Grid d:IsLocked="True" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
@@ -38,11 +39,20 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Margin="5,7,5,5" />
-        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+        <DockPanel Grid.Row="0" Grid.Column="3"
+            MinWidth="100">
+            <TextBlock Text="Font size:"
+                Margin="5,7,5,5" />
+            <TextBox x:Name="FontSize"
+                Margin="0,5,0,5"
+                Text="10" />
+        </DockPanel>
+        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
             Margin="5,5,5,5"
             VerticalScrollBarVisibility="Visible"
             TextWrapping="Wrap"
             AcceptsReturn="True"
+            FontSize="{Binding Text, ElementName=FontSize, Mode=TwoWay}"
             IsReadOnly="{Binding IsChecked, ElementName=checkBoxLock}"
             Text="{Binding Text.Value}"/>
     </Grid>
