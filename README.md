@@ -2,7 +2,7 @@
 
 WPF applicationの自習用repository
 
-色んなサイトのサンプルアプリを作ってみて、WPF applicationの作り方を学んでいます。
+色んなサイトのサンプルアプリを通じて、WPF applicationの作り方を学んでいます。
 
 ## Contents
 
