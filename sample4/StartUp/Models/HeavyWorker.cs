@@ -19,39 +19,39 @@ namespace Sample4.Models
         {
             using (this._cancellationTokenSource = new CancellationTokenSource())
             {
-                try
+                await Task.Run(() =>
                 {
-                    await Task.Run(() =>
+                    try
                     {
                         foreach (int v in Enumerable.Range(1, 100))
                         {
-                            // キャンセル処理
-                            this._cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                                // キャンセル処理
+                                this._cancellationTokenSource.Token.ThrowIfCancellationRequested();
 
-                            // 重たい処理
-                            Task.Delay(100).Wait();
+                                // 重たい処理
+                                Task.Delay(100).Wait();
 
-                            // 状況通知
-                            progress.Report(new ProgressInfo(v, $"処理中{v}/{100}"));
+                                // 状況通知
+                                progress.Report(new ProgressInfo(v, $"処理中{v}/{100}"));
                         }
-                    }, this._cancellationTokenSource.Token);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                            // キャンセルされた場合
+                            progress.Report(new ProgressInfo(0, "キャンセルされました"));
+                        return;
+                    }
+                }, this._cancellationTokenSource.Token);
 
-                    // 作業終了後の処理
-                    progress.Report(new ProgressInfo(0, "作業終了"));
-                }
-                catch (OperationCanceledException)
-                {
-                    // キャンセルされた場合
-                    progress.Report(new ProgressInfo(0, "キャンセルされました"));
-                    return;
-                }
+                // 作業終了後の処理
+                progress.Report(new ProgressInfo(0, "作業終了"));
             }
         }
 
         /// <summary>
         /// 処理を中断する
         /// </summary>
-        public void Cancel() 
+        public void Cancel()
             => this._cancellationTokenSource.Cancel();
 
         private CancellationTokenSource _cancellationTokenSource;
