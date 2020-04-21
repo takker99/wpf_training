@@ -1,4 +1,4 @@
-﻿using Prism.Ioc;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Unity;
 using System;
@@ -15,7 +15,8 @@ namespace Sample4
         protected override Window CreateShell()
             => this.Container.Resolve<StartUp.Views.MainWindow>();
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
+        protected override void RegisterTypes(IContainerRegistry containerRegistry) 
+            => containerRegistry.Register<Models.IHeavyWorker, Models.HeavyWorker>();
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する
         protected override void ConfigureViewModelLocator()
