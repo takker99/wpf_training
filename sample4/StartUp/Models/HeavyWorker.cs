@@ -17,7 +17,7 @@ namespace Sample4.StartUp.Models
         /// <returns></returns>
         public async Task HeavyWork(IProgress<ProgressInfo> progress)
         {
-            using (this._CancellationTokenSource = new CancellationTokenSource())
+            using (this._cancellationTokenSource = new CancellationTokenSource())
             {
                 try
                 {
@@ -26,7 +26,7 @@ namespace Sample4.StartUp.Models
                         foreach (var v in Enumerable.Range(1, 100))
                         {
                             // キャンセル処理
-                            this._CancellationTokenSource.Token.ThrowIfCancellationRequested();
+                            this._cancellationTokenSource.Token.ThrowIfCancellationRequested();
 
                             // 重たい処理
                             Task.Delay(100).Wait();
@@ -34,7 +34,7 @@ namespace Sample4.StartUp.Models
                             // 状況通知
                             progress.Report(new ProgressInfo(v, $"処理中{v}/{100}"));
                         }
-                    }, this._CancellationTokenSource.Token);
+                    }, this._cancellationTokenSource.Token);
 
                     // 作業終了後の処理
                     progress.Report(new ProgressInfo(0, "作業終了"));
@@ -52,8 +52,8 @@ namespace Sample4.StartUp.Models
         /// 処理を中断する
         /// </summary>
         public void Cancel() 
-            => this._CancellationTokenSource.Cancel();
+            => this._cancellationTokenSource.Cancel();
 
-        private CancellationTokenSource _CancellationTokenSource;
+        private CancellationTokenSource _cancellationTokenSource;
     }
 }
