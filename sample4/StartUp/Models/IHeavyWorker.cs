@@ -4,19 +4,19 @@ using System.Threading.Tasks;
 namespace Sample4.StartUp.Models
 {
     /// <summary>
-    /// ”ñí‚Éd‚½‚¢ˆ— (–ÚˆÀ‚Í50ms)‚ğ•Ê‚Ìthread‚Ås‚¤‚½‚ß‚Ìinterface
+    /// éå¸¸ã«é‡ãŸã„å‡¦ç† (ç›®å®‰ã¯50ms)ã‚’åˆ¥ã®threadã§è¡Œã†ãŸã‚ã®interface
     /// </summary>
     public interface IHeavyWorker
     {
         /// <summary>
-        /// ”ñí‚Éd‚½‚¢ˆ—‚ğÀs‚·‚é
+        /// éå¸¸ã«é‡ãŸã„å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹
         /// </summary>
-        /// <param name="progressInfo">ˆ—‚Ì’Ê’mæ</param>
+        /// <param name="progressInfo">å‡¦ç†ã®é€šçŸ¥å…ˆ</param>
         /// <returns></returns>
         public Task HeavyWork(IProgress<ProgressInfo> progressInfo);
 
         /// <summary>
-        /// ˆ—‚ğ’†’f‚·‚é
+        /// å‡¦ç†ã‚’ä¸­æ–­ã™ã‚‹
         /// </summary>
         public void Cancel();
     }

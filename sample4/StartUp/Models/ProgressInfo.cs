@@ -1,7 +1,7 @@
 namespace Sample4.StartUp.Models
 {
     /// <summary>
-    /// ˆ—‚Ìisó‘Ô‚ğ•Û‚·‚éclass
+    /// å‡¦ç†ã®é€²è¡ŒçŠ¶æ…‹ã‚’ä¿æŒã™ã‚‹class
     /// </summary>
     public class ProgressInfo
     {
