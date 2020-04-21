@@ -1,4 +1,4 @@
-﻿<Windows x:Class="Sample4.StartUp.Views.MainWindow"
+﻿<Window x:Class="Sample4.StartUp.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Sample4.StartUp.Views"
@@ -11,4 +11,4 @@
     <Grid ShowGridLines="True">
 
     </Grid>
-</Windows>
+</Window>
