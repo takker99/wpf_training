@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Sample4.StartUp.Models
+namespace Sample4.Models
 {
     /// <summary>
     /// 非常に重たい処理 (目安は50ms)を別のthreadで行うためのinterface

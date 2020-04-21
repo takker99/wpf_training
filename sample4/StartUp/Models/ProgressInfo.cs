@@ -1,4 +1,4 @@
-namespace Sample4.StartUp.Models
+namespace Sample4.Models
 {
     /// <summary>
     /// 処理の進行状態を保持するclass
