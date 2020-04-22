@@ -12,6 +12,11 @@
     prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <TreeView ItemsSource="{Binding TreeNodes}">
+            <TreeView.Resources>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded.Value, Mode=TwoWay}" />
+                </Style>
+            </TreeView.Resources>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type vm:TreeViewItem}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
