@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Sample1.Views
+namespace Sample1.StartUp.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -8,8 +8,6 @@ namespace Sample1.Views
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
     }
 }

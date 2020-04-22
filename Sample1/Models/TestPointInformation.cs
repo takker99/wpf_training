@@ -1,4 +1,4 @@
-namespace Sample1.Model
+namespace Sample1.Models
 {
     [System.Runtime.Serialization.DataContract]
     public class TestPointInformation : Prism.Mvvm.BindableBase

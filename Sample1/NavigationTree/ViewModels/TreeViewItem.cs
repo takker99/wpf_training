@@ -4,7 +4,7 @@ using Prism.Mvvm;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
-namespace NavigationTree.ViewModels
+namespace Sample1.NavigationTree.ViewModels
 {
     public class TreeViewItem : BindableBase, IDisposable
     {
@@ -36,16 +36,16 @@ namespace NavigationTree.ViewModels
             // という手順を踏んでソースを登録する
             switch (this.SourceData)
             {
-                case Sample1.Model.PersonalInformation p:
+                case Models.PersonalInformation p:
                     this.ItemText = p.ObserveProperty(x => x.Name).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
                     imageFileName = "standing-man.png";
                     break;
-                case Sample1.Model.PhysicalInformation phy:
-                    ItemText = phy.ObserveProperty(x => x.MeasurementDate).Select(d => d.HasValue ? d.Value.ToString("yyy年MM月dd日") : "新しい測定").ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                case Models.PhysicalInformation phy:
+                    this.ItemText = phy.ObserveProperty(x => x.MeasurementDate).Select(d => d.HasValue ? d.Value.ToString("yyy年MM月dd日") : "新しい測定").ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
                     imageFileName = "hearts.png";
                     break;
-                case Sample1.Model.TestPointInformation test:
-                    ItemText = test.ObserveProperty(x => x.TestDate).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                case Models.TestPointInformation test:
+                    this.ItemText = test.ObserveProperty(x => x.TestDate).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
                     imageFileName = "test.png";
                     break;
                 case string s:
@@ -55,7 +55,7 @@ namespace NavigationTree.ViewModels
                     break;
             }
 
-            var image = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/" + imageFileName, UriKind.Absolute));
+            var image = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/NavigationTree;component/Resources/" + imageFileName, UriKind.Absolute));
             this.ItemImage = new ReactivePropertySlim<System.Windows.Media.ImageSource>(image).AddTo(this._disposables);
         }
 
@@ -63,6 +63,7 @@ namespace NavigationTree.ViewModels
         void IDisposable.Dispose() => this._disposables.Dispose();
 
         /// <summary>ReactivePropertyのDispose用リスト</summary>
-        private System.Reactive.Disposables.CompositeDisposable _disposables = new System.Reactive.Disposables.CompositeDisposable();
+        private readonly System.Reactive.Disposables.CompositeDisposable _disposables 
+            = new System.Reactive.Disposables.CompositeDisposable();
     }
 }

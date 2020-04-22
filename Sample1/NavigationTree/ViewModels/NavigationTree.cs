@@ -3,7 +3,7 @@ using Prism.Mvvm;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
-namespace NavigationTree.ViewModels
+namespace Sample1.NavigationTree.ViewModels
 {
     public class NavigationTree : BindableBase, System.IDisposable
     {
@@ -12,7 +12,7 @@ namespace NavigationTree.ViewModels
 
         public ReactiveCommand<RoutedPropertyChangedEventArgs<object>> SelectedItemChanged { get; }
 
-        public NavigationTree(Sample1.Model.AppData appData)
+        public NavigationTree(Models.AppData appData)
         {
             // DI container からAppDataを受け取る
             this._appData = appData;
@@ -28,7 +28,7 @@ namespace NavigationTree.ViewModels
         }
 
         // AppData を TreeViewItem の形式に変換する
-        private TreeViewItem _convert(Sample1.Model.AppData appData)
+        private TreeViewItem _convert(Models.AppData appData)
         {
             var rootNode = new TreeViewItem(appData.Student);
 
@@ -57,8 +57,9 @@ namespace NavigationTree.ViewModels
 
         void System.IDisposable.Dispose() => this._disposables.Dispose();
 
-        private Sample1.Model.AppData _appData = null;
+        private Models.AppData _appData = null;
         private TreeViewItem _rootNode = null;
-        private System.Reactive.Disposables.CompositeDisposable _disposables = new System.Reactive.Disposables.CompositeDisposable();
+        private readonly System.Reactive.Disposables.CompositeDisposable _disposables
+            = new System.Reactive.Disposables.CompositeDisposable();
     }
 }
