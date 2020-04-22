@@ -15,8 +15,8 @@
             <ri:EventToReactiveCommand Command="{Binding Loaded}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid>
-        <TreeView ItemsSource="{Binding TreeNodes}">
+    <Grid  FocusManager.FocusedElement="{Binding ElementName=mainTree}">
+        <TreeView x:Name="mainTree" ItemsSource="{Binding TreeNodes}">
             <TreeView.Resources>
                 <Style TargetType="TreeViewItem">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded.Value, Mode=TwoWay}" />
