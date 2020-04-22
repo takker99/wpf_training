@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Navigation;
 using Prism.Mvvm;
 using Prism.Regions;
 using Reactive.Bindings;
@@ -12,6 +13,11 @@ namespace Sample1.NavigationTree.ViewModels
         public ReadOnlyReactiveCollection<TreeViewItem> TreeNodes { get; }
 
         public ReactiveCommand<RoutedPropertyChangedEventArgs<object>> SelectedItemChanged { get; }
+        /// <summary>
+        /// UserContorlのLoaded event handler
+        /// event parameterは使用しない
+        /// </summary>
+        public ReactiveCommand Loaded { get; }
 
         public NavigationTree(Models.AppData appData, IRegionManager regionManager)
         {
@@ -26,6 +32,9 @@ namespace Sample1.NavigationTree.ViewModels
             };
             this.TreeNodes = col.ToReadOnlyReactiveCollection().AddTo(this._disposables);
 
+            // ReactiveCommandの設定
+
+            // 選択したアイテムに応じて編集画面を切り替える
             this.SelectedItemChanged = new ReactiveCommand<RoutedPropertyChangedEventArgs<object>>()
                 .WithSubscribe(e =>
                 {
@@ -50,6 +59,11 @@ namespace Sample1.NavigationTree.ViewModels
 
                     this._regionManager.RequestNavigate("EditorArea", viewName);
                 })
+                .AddTo(this._disposables);
+
+            // 起動直後はroot nodeを選択した状態にする
+            this.Loaded = new ReactiveCommand()
+                .WithSubscribe(() => this._rootNode.IsSelected.Value = true)
                 .AddTo(this._disposables);
         }
 

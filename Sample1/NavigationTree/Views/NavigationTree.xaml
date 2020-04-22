@@ -10,11 +10,18 @@
     xmlns:ri="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <ri:EventToReactiveCommand Command="{Binding Loaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <TreeView ItemsSource="{Binding TreeNodes}">
             <TreeView.Resources>
                 <Style TargetType="TreeViewItem">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded.Value, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" 
+                            Value="{Binding IsSelected.Value, Mode=TwoWay}" />
                 </Style>
             </TreeView.Resources>
             <TreeView.ItemTemplate>
