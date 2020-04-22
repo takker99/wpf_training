@@ -5,7 +5,7 @@ using Reactive.Bindings;
 namespace Sample1.Models
 {
     [System.Runtime.Serialization.DataContract]
-    public class PhysicalInformation : Prism.Mvvm.BindableBase
+    public class PhysicalInformation
     {
         /// <summary>身体測定データのIDを取得・設定します。</summary>
         public int Id { get; } = 0;

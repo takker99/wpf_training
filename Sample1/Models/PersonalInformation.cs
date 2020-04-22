@@ -3,7 +3,7 @@ using Reactive.Bindings;
 namespace Sample1.Models
 {
     [System.Runtime.Serialization.DataContract]
-    public class PersonalInformation : Prism.Mvvm.BindableBase
+    public class PersonalInformation
     {
         /// <summary>個人名を取得・設定します。</summary>
         [System.Runtime.Serialization.DataMember]

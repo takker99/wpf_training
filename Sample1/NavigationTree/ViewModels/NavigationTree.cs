@@ -8,15 +8,15 @@ using Reactive.Bindings.Extensions;
 namespace Sample1.NavigationTree.ViewModels
 {
     /// <summary>ツリーのカテゴリタイプを表す列挙型。</summary>
-	public enum TreeNodeCategoryType
-	{
-		/// <summary>カテゴリなし</summary>
-		NoCategory,
-		/// <summary>身体測定を表します。</summary>
-		Physical,
-		/// <summary>試験結果を表します。</summary>
-		TestPoint
-	}
+    public enum TreeNodeCategoryType
+    {
+        /// <summary>カテゴリなし</summary>
+        NoCategory,
+        /// <summary>身体測定を表します。</summary>
+        Physical,
+        /// <summary>試験結果を表します。</summary>
+        TestPoint
+    }
 
     public class NavigationTree : BindableBase, System.IDisposable
     {
@@ -33,23 +33,23 @@ namespace Sample1.NavigationTree.ViewModels
 
 
         /// <summary>パラメータで指定したカテゴリ配下のアイテムを新規作成します。</summary>
-		/// <param name="categoryType">新規作成するカテゴリを表すTreeNodeCategoryType列挙型の内の1つ。</param>
-		/// <returns>新規作成したアイテムをセットしたTreeViewItem。</returns>
-		internal TreeViewItem createNewChild(TreeNodeCategoryType categoryType)
-		{
-			object newItem = null;
-			switch (categoryType)
-			{
-				case TreeNodeCategoryType.Physical:
-					newItem = this._appData.Create<Models.PhysicalInformation>();
-					break;
-				case TreeNodeCategoryType.TestPoint:
-					newItem = this._appData.Create<Models.TestPointInformation>();
-					break;
-			}
+        /// <param name="categoryType">新規作成するカテゴリを表すTreeNodeCategoryType列挙型の内の1つ。</param>
+        /// <returns>新規作成したアイテムをセットしたTreeViewItem。</returns>
+        internal TreeViewItem createNewChild(TreeNodeCategoryType categoryType)
+        {
+            object newItem = null;
+            switch (categoryType)
+            {
+                case TreeNodeCategoryType.Physical:
+                    newItem = this._appData.Create<Models.PhysicalInformation>();
+                    break;
+                case TreeNodeCategoryType.TestPoint:
+                    newItem = this._appData.Create<Models.TestPointInformation>();
+                    break;
+            }
 
-			return new TreeViewItem(newItem, this);
-		}
+            return new TreeViewItem(newItem, this);
+        }
 
         public NavigationTree(Models.AppData appData, IRegionManager regionManager)
         {
@@ -89,7 +89,14 @@ namespace Sample1.NavigationTree.ViewModels
                             break;
                     }
 
-                    this._regionManager.RequestNavigate("EditorArea", viewName);
+
+                    // 編集画面を表示する
+                    this._regionManager.RequestNavigate("EditorArea", viewName
+                        , new NavigationParameters
+                    {
+                        // 編集画面にわたすparameter
+                        { "TargetData", current.SourceData }
+                    });
                 })
                 .AddTo(this._disposables);
 
@@ -102,25 +109,25 @@ namespace Sample1.NavigationTree.ViewModels
         // AppData を TreeViewItem の形式に変換する
         private TreeViewItem _convert(Models.AppData appData)
         {
-            var rootNode = new TreeViewItem(appData.Student,this);
+            var rootNode = new TreeViewItem(appData.Student, this);
 
             // 身体測定データの tree を作る
-            var physicalClass = new TreeViewItem("身体測定",this,TreeNodeCategoryType.Physical);
+            var physicalClass = new TreeViewItem("身体測定", this, TreeNodeCategoryType.Physical);
             rootNode.Children.Add(physicalClass);
 
             foreach (var item in appData.Physicals)
             {
-                var child = new TreeViewItem(item,this);
+                var child = new TreeViewItem(item, this);
                 physicalClass.Children.Add(child);
             }
 
             // 試験結果データの tree を作る
-            var testPointClass = new TreeViewItem("試験結果",this,TreeNodeCategoryType.TestPoint);
+            var testPointClass = new TreeViewItem("試験結果", this, TreeNodeCategoryType.TestPoint);
             rootNode.Children.Add(testPointClass);
 
             foreach (var item in appData.TestPoints)
             {
-                var child = new TreeViewItem(item,this);
+                var child = new TreeViewItem(item, this);
                 testPointClass.Children.Add(child);
             }
 
