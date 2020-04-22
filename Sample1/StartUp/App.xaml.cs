@@ -1,4 +1,4 @@
-﻿using Prism.Ioc;
+using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Unity;
@@ -47,7 +47,7 @@ namespace Sample1
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<NavigationTree.Module>(InitializationMode.WhenAvailable);
-            moduleCatalog.AddModule<.Module>(InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule<EditorView.Module>(InitializationMode.WhenAvailable);
         }
 
         private string _dataFilePath = String.Empty;
