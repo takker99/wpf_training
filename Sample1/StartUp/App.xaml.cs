@@ -26,7 +26,7 @@ namespace Sample1
 
         // データをDI container に登録する
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
-            => containerRegistry.RegisterInstance<Model.AppData>(DataLoader.Load(this._dataFilePath));
+            => containerRegistry.RegisterInstance(Services.DataLoader.Load(this._dataFilePath));
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する
         protected override void ConfigureViewModelLocator()
@@ -44,7 +44,8 @@ namespace Sample1
         }
 
         // moduleを追加する
-        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) => moduleCatalog.AddModule<NavigationTree.Module>(InitializationMode.WhenAvailable);
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) 
+            => moduleCatalog.AddModule<NavigationTree.Module>(InitializationMode.WhenAvailable);
 
         private string _dataFilePath = String.Empty;
     }
