@@ -1,16 +1,15 @@
-﻿using NavigationTree;
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
-namespace NavigationTree
+namespace Sample1.NavigationTree
 {
     public class Module : IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            var regionManager = containerProvider.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion("NaviTree", typeof(Views.NavigationTree));
+            IRegionManager regionManager = containerProvider.Resolve<IRegionManager>();
+            _ = regionManager.RegisterViewWithRegion("NaviTree", typeof(Views.NavigationTree));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry) { }
