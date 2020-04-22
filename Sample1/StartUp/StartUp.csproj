@@ -9,6 +9,7 @@
       <PackageReference Include="ReactiveProperty" Version="6.2.0" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\EditorView\EditorView.csproj" />
       <ProjectReference Include="..\Models\Models.csproj" />
       <ProjectReference Include="..\NavigationTree\NavigationTree.csproj" />
       <ProjectReference Include="..\Services\Services.csproj" />

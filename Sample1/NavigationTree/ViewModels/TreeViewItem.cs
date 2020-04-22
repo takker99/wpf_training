@@ -21,6 +21,10 @@ namespace Sample1.NavigationTree.ViewModels
         /// <summary>TreeViewItem のImageを取得します</summary>
         public ReactivePropertySlim<System.Windows.Media.ImageSource> ItemImage { get; }
 
+        /// <summary>TreeViewItemが展開されているかを取得・設定します。</summary>
+        public ReactivePropertySlim<bool> IsExpanded { get; set; }
+
+
         /// <summary>コンストラクタ</summary>
         /// <param name="treeItem">TreeViewItem の元データを表すobject。</param>
         public TreeViewItem(object treeItem)
@@ -57,13 +61,16 @@ namespace Sample1.NavigationTree.ViewModels
 
             var image = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/NavigationTree;component/Resources/" + imageFileName, UriKind.Absolute));
             this.ItemImage = new ReactivePropertySlim<System.Windows.Media.ImageSource>(image).AddTo(this._disposables);
+
+            // TreeViewItemをdefaultで展開状態とする
+            this.IsExpanded=new ReactivePropertySlim<bool>(true).AddTo(this._disposables);
         }
 
         /// <summary>オブジェクトを破棄します。</summary>
         void IDisposable.Dispose() => this._disposables.Dispose();
 
         /// <summary>ReactivePropertyのDispose用リスト</summary>
-        private readonly System.Reactive.Disposables.CompositeDisposable _disposables 
+        private readonly System.Reactive.Disposables.CompositeDisposable _disposables
             = new System.Reactive.Disposables.CompositeDisposable();
     }
 }
