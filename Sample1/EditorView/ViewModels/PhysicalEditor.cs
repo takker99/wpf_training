@@ -56,7 +56,10 @@ namespace Sample1.EditorView.ViewModels
             this.MeasurementDate = this._physicInfo.MeasurementDate
                 //     ignoreValidationErrorValue:true
                 // を設定することで、error時に値がmodelに反映されないようになる
-                .ToReactivePropertyAsSynchronized(x => x.Value, ignoreValidationErrorValue: true)
+                .ToReactivePropertyAsSynchronized(x => x.Value
+                // 初期値ではerrorが出ないようにする
+                , mode: ReactivePropertyMode.Default | ReactivePropertyMode.IgnoreInitialValidationError
+                , ignoreValidationErrorValue: true)
                 // 複数propertyが絡むvalidationでは、DataAnnotationが使えない
                 .SetValidateNotifyError(value =>
                 {
