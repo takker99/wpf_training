@@ -10,10 +10,10 @@ namespace Sample1.EditorView
         // DI containerにViewをRigion Navigationとして登録する
         public void RegisterTypes(IContainerRegistry containerRegistry) 
         {
-            containerRegistry.RegisterForNavigation<ViewModels.PersonalEditor>();
-            containerRegistry.RegisterForNavigation<ViewModels.PhysicalEditor>();
-            containerRegistry.RegisterForNavigation<ViewModels.TestPointEditor>();
-            containerRegistry.RegisterForNavigation<ViewModels.CategoryPanel>();
+            containerRegistry.RegisterForNavigation<Views.PersonalEditor>();
+            containerRegistry.RegisterForNavigation<Views.PhysicalEditor>();
+            containerRegistry.RegisterForNavigation<Views.TestPointEditor>();
+            containerRegistry.RegisterForNavigation<Views.CategoryPanel>();
         }
     }
 }

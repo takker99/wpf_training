@@ -46,8 +46,8 @@ namespace Sample1
         // moduleを追加する
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<NavigationTree.Module>(InitializationMode.WhenAvailable);
-            moduleCatalog.AddModule<EditorView.Module>(InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule<NavigationTree.Module>(nameof(NavigationTree)+nameof(NavigationTree.Module),InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule<EditorView.Module>(nameof(EditorView)+nameof(NavigationTree.Module),InitializationMode.WhenAvailable);
         }
 
         private string _dataFilePath = String.Empty;

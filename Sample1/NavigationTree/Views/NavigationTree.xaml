@@ -21,7 +21,7 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
             <i:Interaction.Triggers>
-                <i:EventTrigger>
+                <i:EventTrigger EventName="SelectedItemChanged">
                     <ri:EventToReactiveCommand Command="{Binding SelectedItemChanged}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
