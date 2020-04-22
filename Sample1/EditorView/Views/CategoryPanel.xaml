@@ -11,6 +11,6 @@
     mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
     prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-
+        <TextBlock Text="Category" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </UserControl>

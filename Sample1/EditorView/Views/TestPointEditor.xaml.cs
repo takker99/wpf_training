@@ -8,6 +8,6 @@ namespace Sample1.EditorView.Views
     /// </summary>
     public partial class TestPointEditor : UserControl
     {
-        public TestPointEditor() => InitializeComponent();
+        public TestPointEditor() => this.InitializeComponent();
     }
 }
