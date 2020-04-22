@@ -22,6 +22,8 @@
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded.Value, Mode=TwoWay}" />
                     <Setter Property="IsSelected" 
                             Value="{Binding IsSelected.Value, Mode=TwoWay}" />
+                    <EventSetter Event="PreviewMouseRightButtonDown"
+                                 Handler="TreeViewItem_PreviewMouseRightButtonDown" />
                 </Style>
                 <!--context menuはresourceに置いて使い回す-->
                 <ContextMenu x:Key="TreeViewItemContextMenu">
