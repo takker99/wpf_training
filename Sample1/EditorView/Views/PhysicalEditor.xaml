@@ -10,6 +10,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
     prism:ViewModelLocator.AutoWireViewModel="True">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/EditorView;component/ErrorTemplate.xaml" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.4*"/>
@@ -34,7 +37,8 @@
                 </Grid.ColumnDefinitions>
                 <DatePicker Grid.Column="0" Grid.ColumnSpan="2"
 							VerticalAlignment="Center" Margin="10,0"
-							SelectedDate="{Binding MeasurementDate.Value, UpdateSourceTrigger=PropertyChanged}"/>
+							SelectedDate="{Binding MeasurementDate.Value, UpdateSourceTrigger=PropertyChanged}"
+                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
             </Grid>
             <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Text="測定日" VerticalAlignment="Center" Margin="0,0,10,0" TextAlignment="Right"/>
             <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Text="測定値" VerticalAlignment="Center" Margin="0,0,10,0" TextAlignment="Right"/>
@@ -60,7 +64,8 @@
                     <!--Validationをリアルタイムに実行したい場合は、
                     UpdateSourceTrigger=PropertyChangedを設定する-->
                     <TextBox Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
-							 Text="{Binding Height.Value, UpdateSourceTrigger=PropertyChanged}" MaxLength="5" />
+							 Text="{Binding Height.Value, UpdateSourceTrigger=PropertyChanged}" MaxLength="5"
+                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
                     <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="cm" />
                 </Grid>
                 <Grid Grid.Column="1" Grid.Row="1">
@@ -68,7 +73,8 @@
                         <ColumnDefinition Width="0.8*"/>
                         <ColumnDefinition Width="0.2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" Text="{Binding Weight.Value, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="0" Text="{Binding Weight.Value, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" VerticalContentAlignment="Center" 
+                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
                     <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="kg" />
                 </Grid>
                 <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Bmi.Value, Mode=OneWay}" TextAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" />
