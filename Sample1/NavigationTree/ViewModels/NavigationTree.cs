@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Prism.Mvvm;
+using Prism.Regions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
@@ -12,11 +13,12 @@ namespace Sample1.NavigationTree.ViewModels
 
         public ReactiveCommand<RoutedPropertyChangedEventArgs<object>> SelectedItemChanged { get; }
 
-        public NavigationTree(Models.AppData appData)
+        public NavigationTree(Models.AppData appData, IRegionManager regionManager)
         {
-            // DI container からAppDataを受け取る
+            // DI container からmodelsを受け取る
             this._appData = appData;
             this._rootNode = this._convert(this._appData); // TreeView に渡せる形式に変換する
+            this._regionManager = regionManager;
 
             var col = new System.Collections.ObjectModel.ObservableCollection<TreeViewItem>
             {
@@ -24,7 +26,31 @@ namespace Sample1.NavigationTree.ViewModels
             };
             this.TreeNodes = col.ToReadOnlyReactiveCollection().AddTo(this._disposables);
 
-            this.SelectedItemChanged = new ReactiveCommand<RoutedPropertyChangedEventArgs<object>>().WithSubscribe(e => { }).AddTo(this._disposables);
+            this.SelectedItemChanged = new ReactiveCommand<RoutedPropertyChangedEventArgs<object>>()
+                .WithSubscribe(e =>
+                {
+                    var viewName = string.Empty;
+                    var current = e.NewValue as TreeViewItem;
+
+                    switch (current.SourceData)
+                    {
+                        case Models.PersonalInformation p:
+                            viewName = "PersonalEditor";
+                            break;
+                        case Models.PhysicalInformation p:
+                            viewName = "PersonalEditor";
+                            break;
+                        case Models.TestPointInformation t:
+                            viewName = "TestPointEditor";
+                            break;
+                        case string s:
+                            viewName = "CategoryPanel";
+                            break;
+                    }
+
+                    this._regionManager.RequestNavigate("EditorArea", viewName);
+                })
+                .AddTo(this._disposables);
         }
 
         // AppData を TreeViewItem の形式に変換する
@@ -57,8 +83,9 @@ namespace Sample1.NavigationTree.ViewModels
 
         void System.IDisposable.Dispose() => this._disposables.Dispose();
 
-        private Models.AppData _appData = null;
-        private TreeViewItem _rootNode = null;
+        private readonly Models.AppData _appData = null;
+        private readonly TreeViewItem _rootNode = null;
+        private IRegionManager _regionManager = null;
         private readonly System.Reactive.Disposables.CompositeDisposable _disposables
             = new System.Reactive.Disposables.CompositeDisposable();
     }
