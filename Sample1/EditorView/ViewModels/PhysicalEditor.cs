@@ -19,14 +19,14 @@ namespace Sample1.EditorView.ViewModels
         // は使えない
 
         /// <summary>測定日を取得・設定します。</summary>
-        [RegularExpression(@"^\d{1,3}(\.\d{1,2})?$", ErrorMessage = "身長は整数3桁 少数2桁の範囲で入力してください。")]
         public ReactiveProperty<System.DateTime?> MeasurementDate { get; private set; }
 
         /// <summary>身長を取得・設定します。</summary>
-        [RegularExpression(@"^\d{1,3}(\.\d{1,2})?$", ErrorMessage = "体重は整数3桁 少数2桁の範囲で入力してください。")]
+        [RegularExpression(@"^\d{1,3}(\.\d{1,2})?$", ErrorMessage = "身長は整数3桁 少数2桁の範囲で入力してください。")]
         public ReactiveProperty<double> Height { get; private set; }
 
         /// <summary>体重を取得・設定します。</summary>
+        [RegularExpression(@"^\d{1,3}(\.\d{1,2})?$", ErrorMessage = "体重は整数3桁 少数2桁の範囲で入力してください。")]
         public ReactiveProperty<double> Weight { get; private set; }
 
         /// <summary>BMIを取得します。</summary>
