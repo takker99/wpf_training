@@ -44,8 +44,11 @@ namespace Sample1
         }
 
         // moduleを追加する
-        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) 
-            => moduleCatalog.AddModule<NavigationTree.Module>(InitializationMode.WhenAvailable);
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            moduleCatalog.AddModule<NavigationTree.Module>(InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule<.Module>(InitializationMode.WhenAvailable);
+        }
 
         private string _dataFilePath = String.Empty;
     }
