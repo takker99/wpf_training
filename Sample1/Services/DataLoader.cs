@@ -14,16 +14,11 @@ namespace Sample1.Services
         private static Models.AppData _createNewTestData()
         {
             var appData = new Models.AppData();
-            appData.Student.Name = "新しい生徒";
-            appData.Student.ClassNumber = "所属クラス";
-            appData.Student.Sex = "女";
-
-            appData.Physicals.Add(new Models.PhysicalInformation { Id = 1 });
-            appData.TestPoints.Add(new Models.TestPointInformation
-            {
-                Id = 1,
-                TestDate = "新しい試験日",
-            });
+            appData.Student.Name.Value = "新しい生徒";
+            appData.Student.ClassNumber.Value = "所属クラス";
+            appData.Student.Sex.Value = "女";
+            appData.Create<Models.PhysicalInformation>();
+			appData.Create<Models.TestPointInformation>();
 
             return appData;
         }

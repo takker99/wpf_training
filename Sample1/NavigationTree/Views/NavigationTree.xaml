@@ -23,10 +23,20 @@
                     <Setter Property="IsSelected" 
                             Value="{Binding IsSelected.Value, Mode=TwoWay}" />
                 </Style>
+                <!--context menuはresourceに置いて使い回す-->
+                <ContextMenu x:Key="TreeViewItemContextMenu">
+                    <MenuItem Header="Add a new data(_A)"
+                                          Command="{Binding AddNewDataCommand}" />
+                </ContextMenu>
             </TreeView.Resources>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type vm:TreeViewItem}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="ContextMenu" Value="{StaticResource TreeViewItemContextMenu}"/>
+                            </Style>
+                        </StackPanel.Style>
                         <Image Source="{Binding ItemImage.Value}" Width="25" Height="25" />
                         <TextBlock Text="{Binding ItemText.Value}" />
                     </StackPanel>

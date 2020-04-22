@@ -1,4 +1,6 @@
 using System;
+using System.Reactive.Linq;
+using Reactive.Bindings;
 
 namespace Sample1.Models
 {
@@ -6,60 +8,36 @@ namespace Sample1.Models
     public class PhysicalInformation : Prism.Mvvm.BindableBase
     {
         /// <summary>身体測定データのIDを取得・設定します。</summary>
-        public int Id { get; set; } = 0;
+        public int Id { get; } = 0;
 
-        private DateTime? measureDate = null;
         /// <summary>測定日を取得・設定します。</summary>
         [System.Runtime.Serialization.DataMember]
-        public DateTime? MeasurementDate
-        {
-            get { return measureDate; }
-            set { SetProperty(ref measureDate, value); }
-        }
+        public ReactivePropertySlim<DateTime?> MeasurementDate { get; }
 
-        private double bodyHeight = 0;
         /// <summary>身長を取得・設定します。</summary>
         [System.Runtime.Serialization.DataMember]
-        public double Height
-        {
-            get { return bodyHeight; }
-            set
-            {
-                SetProperty(ref bodyHeight, value);
-                this.calcBmi();
-            }
-        }
+        public ReactivePropertySlim<double> Height { get; }
 
-        private double bodyWeight = 0;
         /// <summary>体重を取得・設定します。</summary>
         [System.Runtime.Serialization.DataMember]
-        public double Weight
-        {
-            get { return bodyWeight; }
-            set
-            {
-                SetProperty(ref bodyWeight, value);
-                this.calcBmi();
-            }
-        }
+        public ReactivePropertySlim<double> Weight { get; }
 
-        /// <summary>BMI を計算します。</summary>
-        private void calcBmi()
-        {
-            if (this.Height == 0) { return; }
+        /// <summary>BMIを取得します。</summary>
+        public ReadOnlyReactivePropertySlim<double> Bmi { get; }
 
-            this.Bmi = Math.Round(this.bodyWeight / Math.Pow((this.bodyHeight / 100), 2),
-                                  1,
-                                  MidpointRounding.AwayFromZero);
-        }
-
-        private double _bmi = 0;
-        /// <summary>BMI値を取得します。</summary>
-        [System.Runtime.Serialization.DataMember]
-        public double Bmi
+        public PhysicalInformation(int id)
         {
-            get { return _bmi; }
-            private set { SetProperty(ref _bmi, value); }
+            this.Id = id;
+            this.MeasurementDate = new ReactivePropertySlim<DateTime?>(null);
+            this.Height = new ReactivePropertySlim<double>(0.0);
+            this.Weight = new ReactivePropertySlim<double>(0.0);
+
+            // BMIを計算する
+            this.Bmi = this.Height
+                .CombineLatest(this.Weight, (height, weight) =>
+                  height == 0 ? 0
+                  : Math.Round(weight / Math.Pow(height / 100, 2), 1, MidpointRounding.AwayFromZero))
+                .ToReadOnlyReactivePropertySlim();
         }
     }
 }
