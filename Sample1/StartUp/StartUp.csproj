@@ -9,21 +9,21 @@
         <PackageReference Include="ReactiveProperty" Version="6.2.0" />
     </ItemGroup>
     <ItemGroup>
-      <Resource Include="Resources\hearts.png" />
-      <Resource Include="Resources\standing-man.png" />
-      <Resource Include="Resources\test-folder.png" />
-      <Resource Include="Resources\test.png" />
-      <Resource Include="Resources\user-folder.png" />
+      <Resource Include="..\Resources\hearts.png" />
+      <Resource Include="..\Resources\standing-man.png" />
+      <Resource Include="..\Resources\test-folder.png" />
+      <Resource Include="..\Resources\test.png" />
+      <Resource Include="..\Resources\user-folder.png" />
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="Properties\Resources.Designer.cs">
+      <Compile Update="..\Properties\Resources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>Resources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Update="Properties\Resources.resx">
+      <EmbeddedResource Update="..\Properties\Resources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       </EmbeddedResource>

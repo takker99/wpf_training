@@ -21,7 +21,7 @@ namespace Sample1
         //    base.OnStartup(e);
         //}
 
-        protected override Window CreateShell() => this.Container.Resolve<Views.MainWindow>();
+        protected override Window CreateShell() => this.Container.Resolve<StartUp.Views.MainWindow>();
 
         // データをDI container に登録する
         protected override void RegisterTypes(IContainerRegistry containerRegistry) => containerRegistry.RegisterInstance<Model.AppData>(DataLoader.Load(this._dataFilePath));

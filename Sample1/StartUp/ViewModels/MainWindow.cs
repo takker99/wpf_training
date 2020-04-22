@@ -1,6 +1,6 @@
 ﻿using Prism.Mvvm;
 
-namespace Sample1.ViewModels
+namespace Sample1.StartUp.ViewModels
 {
     public class MainWindow : BindableBase
     {
