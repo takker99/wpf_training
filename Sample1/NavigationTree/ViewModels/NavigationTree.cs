@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using Prism.Mvvm;
 using Prism.Regions;
 using Reactive.Bindings;
@@ -38,7 +38,7 @@ namespace Sample1.NavigationTree.ViewModels
                             viewName = "PersonalEditor";
                             break;
                         case Models.PhysicalInformation p:
-                            viewName = "PersonalEditor";
+                            viewName = "PhysicalEditor";
                             break;
                         case Models.TestPointInformation t:
                             viewName = "TestPointEditor";
