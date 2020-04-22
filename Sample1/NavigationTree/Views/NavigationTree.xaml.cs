@@ -7,6 +7,7 @@ namespace NavigationTree.Views
     /// </summary>
     public partial class NavigationTree : UserControl
     {
-        public NavigationTree() => InitializeComponent();
+        public NavigationTree()
+            => InitializeComponent();
     }
 }

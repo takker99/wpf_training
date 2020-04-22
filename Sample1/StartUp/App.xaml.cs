@@ -21,10 +21,12 @@ namespace Sample1
         //    base.OnStartup(e);
         //}
 
-        protected override Window CreateShell() => this.Container.Resolve<StartUp.Views.MainWindow>();
+        protected override Window CreateShell()
+            => this.Container.Resolve<StartUp.Views.MainWindow>();
 
         // データをDI container に登録する
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) => containerRegistry.RegisterInstance<Model.AppData>(DataLoader.Load(this._dataFilePath));
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+            => containerRegistry.RegisterInstance<Model.AppData>(DataLoader.Load(this._dataFilePath));
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する
         protected override void ConfigureViewModelLocator()

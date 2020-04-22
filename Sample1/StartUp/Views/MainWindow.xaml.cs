@@ -8,8 +8,6 @@ namespace Sample1.StartUp.Views
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
     }
 }

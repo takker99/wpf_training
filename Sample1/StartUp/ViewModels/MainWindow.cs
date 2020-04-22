@@ -1,16 +1,14 @@
 ﻿using Prism.Mvvm;
+using Reactive.Bindings;
 
 namespace Sample1.StartUp.ViewModels
 {
     public class MainWindow : BindableBase
     {
-        private string _title = "Prism Application";
-        public string Title
+        public ReactivePropertySlim<string> Title { get; }
+        public MainWindow()
         {
-            get => this._title;
-            set => SetProperty(ref this._title, value);
+            this.Title = new ReactivePropertySlim<string>("Prism Application");
         }
-
-        public MainWindow() { }
     }
 }
