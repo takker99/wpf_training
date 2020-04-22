@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EditorView.Views
+namespace Sample1.EditorView.Views
 {
     /// <summary>
     /// Interaction logic for CategoryPanel.xaml
