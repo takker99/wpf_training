@@ -55,7 +55,7 @@ namespace NavigationTree.ViewModels
                     break;
             }
 
-            var image = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/" + imageFileName, UriKind.Absolute));
+            var image = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/NavigationTree;component/Resources/" + imageFileName, UriKind.Absolute));
             this.ItemImage = new ReactivePropertySlim<System.Windows.Media.ImageSource>(image).AddTo(this._disposables);
         }
 
