@@ -16,9 +16,9 @@
             <ColumnDefinition Width="0.7*" />
         </Grid.ColumnDefinitions>
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3" />
-        <ContentControl Grid.Row="1" Grid.Column="0" prism:RegionManager.RegionName="NaviTree" />
+        <ContentControl Grid.Row="1" Grid.Column="0" IsTabStop="False" prism:RegionManager.RegionName="NaviTree" />
         <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-        <ContentControl Grid.Row="1" Grid.Column="2" prism:RegionManager.RegionName="EditorArea" />
+        <ContentControl Grid.Row="1" Grid.Column="2" IsTabStop="False" prism:RegionManager.RegionName="EditorArea" />
         <StatusBar Grid.Row="2" Grid.ColumnSpan="3">
             <StatusBarItem />
             <StatusBarItem />
