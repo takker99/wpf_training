@@ -30,7 +30,7 @@ namespace Sample1.Models
         {
             if (typeof(T) == typeof(PhysicalInformation))
             {
-                var temp=new PhysicalInformation(this._publishPhysicalId());
+                var temp = new PhysicalInformation(this._publishPhysicalId());
                 this.Physicals.Add(temp);
                 return temp as T;
             }
@@ -44,6 +44,20 @@ namespace Sample1.Models
             {
                 return null;
             }
+        }
+
+        /// <summary>指定した日付と同日の身体測定データ（自分自身は除く）が
+        /// 存在するかを返します。</summary>
+        /// <param name="value">存在をチェックする日付を表すDateTime?。</param>
+        /// <param name="target">チェックで除外する身体測定データを表すPhysicalInformation。</param>
+        /// <returns>指定した日付と同日の身体測定データが存在するかを表すbool。</returns>
+        public bool HasPhysicalKey(System.DateTime? value, PhysicalInformation target)
+        {
+            return value.HasValue
+                ? this.Physicals
+                    .Where(p => p.MeasurementDate.Value.HasValue)
+                    .FirstOrDefault((p) => p.MeasurementDate.Value.Value.Date == value.Value.Date && p.Id != target.Id) != null
+                : this.Physicals.FirstOrDefault(p => !p.MeasurementDate.Value.HasValue) != null;
         }
 
         /// <summary>

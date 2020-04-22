@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Prism.Mvvm;
 using Prism.Regions;
 using Reactive.Bindings;
@@ -18,9 +19,11 @@ namespace Sample1.EditorView.ViewModels
         // は使えない
 
         /// <summary>測定日を取得・設定します。</summary>
+        [RegularExpression(@"^\d{1,3}(\.\d{1,2})?$", ErrorMessage = "身長は整数3桁 少数2桁の範囲で入力してください。")]
         public ReactiveProperty<System.DateTime?> MeasurementDate { get; private set; }
 
         /// <summary>身長を取得・設定します。</summary>
+        [RegularExpression(@"^\d{1,3}(\.\d{1,2})?$", ErrorMessage = "体重は整数3桁 少数2桁の範囲で入力してください。")]
         public ReactiveProperty<double> Height { get; private set; }
 
         /// <summary>体重を取得・設定します。</summary>
@@ -31,7 +34,9 @@ namespace Sample1.EditorView.ViewModels
 
 
 
-        public PhysicalEditor() { }
+        public PhysicalEditor(Models.AppData appData)
+            // DI container からmodelsを受け取る
+            => this._appData = appData;
 
         /// <summary>Viewを表示した後呼び出されます。</summary>
         /// <param name="navigationContext">Navigation Requestの情報を表すNavigationContext。</param>
@@ -49,13 +54,34 @@ namespace Sample1.EditorView.ViewModels
 
             // ViewModel <=> Modelを双方向bindする
             this.MeasurementDate = this._physicInfo.MeasurementDate
-                .ToReactivePropertyAsSynchronized(x => x.Value)
+                //     ignoreValidationErrorValue:true
+                // を設定することで、error時に値がmodelに反映されないようになる
+                .ToReactivePropertyAsSynchronized(x => x.Value, ignoreValidationErrorValue: true)
+                // 複数propertyが絡むvalidationでは、DataAnnotationが使えない
+                .SetValidateNotifyError(value =>
+                {
+                    if (!value.HasValue)
+                    {
+                        return "必須入力です。";
+                    }
+                    else if (this._appData.HasPhysicalKey(value, this._physicInfo))
+                    {
+                        return "既に同一の測定日が存在するため、別の日付を設定してください。";
+                    }
+                    else
+                    {
+                        // 正常の場合はnullを返す
+                        return null;
+                    }
+                })
                 .AddTo(this._disposables);
             this.Height = this._physicInfo.Height
-                .ToReactivePropertyAsSynchronized(x => x.Value)
+                .ToReactivePropertyAsSynchronized(x => x.Value, ignoreValidationErrorValue: true)
+                .SetValidateAttribute(() => this.Height)
                 .AddTo(this._disposables);
             this.Weight = this._physicInfo.Weight
-                .ToReactivePropertyAsSynchronized(x => x.Value)
+                .ToReactivePropertyAsSynchronized(x => x.Value, ignoreValidationErrorValue: true)
+                .SetValidateAttribute(() => this.Weight)
                 .AddTo(this._disposables);
             // BMIは読み取り専用なので片方向のみ
             this.Bmi = this._physicInfo.Bmi
@@ -79,6 +105,7 @@ namespace Sample1.EditorView.ViewModels
 
         // このViewModelとbindしているModel
         private Models.PhysicalInformation _physicInfo = null;
+        private Models.AppData _appData = null;
         void System.IDisposable.Dispose() => this._disposables.Dispose();
         private System.Reactive.Disposables.CompositeDisposable _disposables
             = new System.Reactive.Disposables.CompositeDisposable();
