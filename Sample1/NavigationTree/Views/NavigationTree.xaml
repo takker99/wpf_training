@@ -18,7 +18,7 @@
     <Grid  FocusManager.FocusedElement="{Binding ElementName=mainTree}">
         <TreeView x:Name="mainTree" ItemsSource="{Binding TreeNodes}">
             <TreeView.Resources>
-                <Style TargetType="TreeViewItem">
+                <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded.Value, Mode=TwoWay}" />
                     <Setter Property="IsSelected" 
                             Value="{Binding IsSelected.Value, Mode=TwoWay}" />
