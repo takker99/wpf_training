@@ -6,8 +6,10 @@
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="LivetCask.Behaviors" Version="3.2.2.2" />
+      <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.0" />
       <PackageReference Include="Prism.Unity" Version="7.2.0.1422" />
       <PackageReference Include="ReactiveProperty" Version="6.2.0" />
+      <PackageReference Include="System.Management" Version="4.7.0" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\EditorView\EditorView.csproj" />
