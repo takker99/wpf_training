@@ -1,6 +1,7 @@
 using System;
 using System.Reactive.Linq;
 using System.Windows.Documents;
+using MaterialDesignThemes.Wpf;
 using Prism.Mvvm;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -20,7 +21,7 @@ namespace Sample1.NavigationTree.ViewModels
         public object SourceData { get; } = null;
 
         /// <summary>TreeViewItem のImageを取得します</summary>
-        public ReactivePropertySlim<System.Windows.Media.ImageSource> ItemImage { get; }
+        public ReactivePropertySlim<PackIconKind> IconImage { get; }
 
         /// <summary>TreeViewItemが展開されているかを取得・設定します。</summary>
         public ReactivePropertySlim<bool> IsExpanded { get; set; }
@@ -56,7 +57,7 @@ namespace Sample1.NavigationTree.ViewModels
             this._parent = parent;
 
 
-            string imageFileName = String.Empty;
+            PackIconKind? icon = null;
 
             // read only reactive propertiesは
             // - ToReadOnlyReactivePropertySlim
@@ -67,25 +68,24 @@ namespace Sample1.NavigationTree.ViewModels
             {
                 case Models.PersonalInformation p:
                     this.ItemText = p.Name.ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
-                    imageFileName = "standing-man.png";
+                    icon = PackIconKind.UserEdit;
                     break;
                 case Models.PhysicalInformation phy:
                     this.ItemText = phy.MeasurementDate.Select(d => d.HasValue ? d.Value.ToString("yyy年MM月dd日") : "新しい測定").ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
-                    imageFileName = "hearts.png";
+                    icon = PackIconKind.HumanMaleHeightVariant;
                     break;
                 case Models.TestPointInformation test:
                     this.ItemText = test.TestDate.ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
-                    imageFileName = "test.png";
+                    icon = PackIconKind.SquareRoot;
                     break;
                 case string s:
                     // このブロックだけ、thisをソースとして用いている。
                     this.ItemText = this.ObserveProperty(x => x.SourceData).Select(v => v as string).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
-                    imageFileName = s == "身体測定" ? "user-folder.png" : "test-folder.png";
+                    icon = s == "身体測定" ? PackIconKind.FolderAccountOutline : PackIconKind.FolderEditOutline;
                     break;
             }
 
-            var image = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/NavigationTree;component/Resources/" + imageFileName, UriKind.Absolute));
-            this.ItemImage = new ReactivePropertySlim<System.Windows.Media.ImageSource>(image).AddTo(this._disposables);
+            this.IconImage = icon.HasValue ? new ReactivePropertySlim<PackIconKind>(icon.Value).AddTo(this._disposables) : null;
 
             // Commandの設定
             this.AddNewDataCommand = new System.Collections.Generic.List<IObservable<bool>>()
