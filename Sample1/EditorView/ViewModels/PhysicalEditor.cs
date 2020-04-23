@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -6,7 +7,7 @@ using Reactive.Bindings.Extensions;
 
 namespace Sample1.EditorView.ViewModels
 {
-    public class PhysicalEditor : BindableBase, System.IDisposable, INavigationAware
+    public class PhysicalEditor : BindableBase, System.IDisposable, INavigationAware, IConfirmNavigationRequest
     {
         // 本来、ReactivePropertyはconstructorで初期化するので、
         // 読み取り専用propertiesで良い。
@@ -106,10 +107,26 @@ namespace Sample1.EditorView.ViewModels
         /// <param name="navigationContext">Navigation Requestの情報を表すNavigationContext。</param>
         void INavigationAware.OnNavigatedFrom(NavigationContext navigationContext) { }
 
+        /// <summary>他 View への遷移を確認します。</summary>
+        /// <param name="navigationContext">遷移先の情報を表すNavigationContext</param>
+        /// <param name="continuationCallback">遷移を続行するかを判定するcallback</param>
+        public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            // 初期値のvalidationは無効にしてあるので、
+            // ForceValidate()で強制実行する
+            this.MeasurementDate.ForceValidate();
+            this.Height.ForceValidate();
+            this.Weight.ForceValidate();
+
+            // 入力欄のerrorが一つもなかったら他のViewへ遷移できる
+            continuationCallback(!(this.MeasurementDate.HasErrors | this.Height.HasErrors | this.Weight.HasErrors));
+        }
+
         // このViewModelとbindしているModel
         private Models.PhysicalInformation _physicInfo = null;
         private Models.AppData _appData = null;
         void System.IDisposable.Dispose() => this._disposables.Dispose();
+
         private System.Reactive.Disposables.CompositeDisposable _disposables
             = new System.Reactive.Disposables.CompositeDisposable();
     }
