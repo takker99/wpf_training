@@ -23,7 +23,7 @@ namespace Sample1.StartUp.ViewModels
                 {
                     this._disposables.Dispose();
 
-                    foreach (var region in this._regionManager.Regions)
+                    foreach (Prism.Regions.IRegion region in this._regionManager.Regions)
                     {
                         // 全てのRegionが持つViewを削除する
                         region.RemoveAll();
