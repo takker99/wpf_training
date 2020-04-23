@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Navigation;
 using Prism.Mvvm;
 using Prism.Regions;
 using Reactive.Bindings;
@@ -6,12 +7,49 @@ using Reactive.Bindings.Extensions;
 
 namespace Sample1.NavigationTree.ViewModels
 {
+    /// <summary>ツリーのカテゴリタイプを表す列挙型。</summary>
+    public enum TreeNodeCategoryType
+    {
+        /// <summary>カテゴリなし</summary>
+        NoCategory,
+        /// <summary>身体測定を表します。</summary>
+        Physical,
+        /// <summary>試験結果を表します。</summary>
+        TestPoint
+    }
+
     public class NavigationTree : BindableBase, System.IDisposable
     {
         // Tree View は user が操作できないので read only で良い。
         public ReadOnlyReactiveCollection<TreeViewItem> TreeNodes { get; }
 
         public ReactiveCommand<RoutedPropertyChangedEventArgs<object>> SelectedItemChanged { get; }
+        /// <summary>
+        /// UserContorlのLoaded event handler
+        /// event parameterは使用しない
+        /// </summary>
+        public ReactiveCommand Loaded { get; }
+
+
+
+        /// <summary>パラメータで指定したカテゴリ配下のアイテムを新規作成します。</summary>
+        /// <param name="categoryType">新規作成するカテゴリを表すTreeNodeCategoryType列挙型の内の1つ。</param>
+        /// <returns>新規作成したアイテムをセットしたTreeViewItem。</returns>
+        internal TreeViewItem createNewChild(TreeNodeCategoryType categoryType)
+        {
+            object newItem = null;
+            switch (categoryType)
+            {
+                case TreeNodeCategoryType.Physical:
+                    newItem = this._appData.Create<Models.PhysicalInformation>();
+                    break;
+                case TreeNodeCategoryType.TestPoint:
+                    newItem = this._appData.Create<Models.TestPointInformation>();
+                    break;
+            }
+
+            return new TreeViewItem(newItem, this);
+        }
 
         public NavigationTree(Models.AppData appData, IRegionManager regionManager)
         {
@@ -26,10 +64,13 @@ namespace Sample1.NavigationTree.ViewModels
             };
             this.TreeNodes = col.ToReadOnlyReactiveCollection().AddTo(this._disposables);
 
+            // ReactiveCommandの設定
+
+            // 選択したアイテムに応じて編集画面を切り替える
             this.SelectedItemChanged = new ReactiveCommand<RoutedPropertyChangedEventArgs<object>>()
                 .WithSubscribe(e =>
                 {
-                    var viewName = string.Empty;
+                    string viewName = System.String.Empty;
                     var current = e.NewValue as TreeViewItem;
 
                     switch (current.SourceData)
@@ -48,33 +89,45 @@ namespace Sample1.NavigationTree.ViewModels
                             break;
                     }
 
-                    this._regionManager.RequestNavigate("EditorArea", viewName);
+
+                    // 編集画面を表示する
+                    this._regionManager.RequestNavigate("EditorArea", viewName
+                        , new NavigationParameters
+                    {
+                        // 編集画面にわたすparameter
+                        { "TargetData", current.SourceData }
+                    });
                 })
+                .AddTo(this._disposables);
+
+            // 起動直後はroot nodeを選択した状態にする
+            this.Loaded = new ReactiveCommand()
+                .WithSubscribe(() => this._rootNode.IsSelected.Value = true)
                 .AddTo(this._disposables);
         }
 
         // AppData を TreeViewItem の形式に変換する
         private TreeViewItem _convert(Models.AppData appData)
         {
-            var rootNode = new TreeViewItem(appData.Student);
+            var rootNode = new TreeViewItem(appData.Student, this);
 
             // 身体測定データの tree を作る
-            var physicalClass = new TreeViewItem("身体測定");
+            var physicalClass = new TreeViewItem("身体測定", this, TreeNodeCategoryType.Physical);
             rootNode.Children.Add(physicalClass);
 
             foreach (var item in appData.Physicals)
             {
-                var child = new TreeViewItem(item);
+                var child = new TreeViewItem(item, this);
                 physicalClass.Children.Add(child);
             }
 
             // 試験結果データの tree を作る
-            var testPointClass = new TreeViewItem("試験結果");
+            var testPointClass = new TreeViewItem("試験結果", this, TreeNodeCategoryType.TestPoint);
             rootNode.Children.Add(testPointClass);
 
             foreach (var item in appData.TestPoints)
             {
-                var child = new TreeViewItem(item);
+                var child = new TreeViewItem(item, this);
                 testPointClass.Children.Add(child);
             }
 
@@ -85,7 +138,7 @@ namespace Sample1.NavigationTree.ViewModels
 
         private readonly Models.AppData _appData = null;
         private readonly TreeViewItem _rootNode = null;
-        private IRegionManager _regionManager = null;
+        private readonly IRegionManager _regionManager = null;
         private readonly System.Reactive.Disposables.CompositeDisposable _disposables
             = new System.Reactive.Disposables.CompositeDisposable();
     }

@@ -33,7 +33,7 @@
                     <ColumnDefinition Width="0.25*"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,0"
-						 Text="{Binding TestDate.Value, Mode=TwoWay}"/>
+						 Text="{Binding TestDate.Value, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Text="試験日" VerticalAlignment="Center" Margin="0,0,10,0" TextAlignment="Right"/>
             <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Text="得点" VerticalAlignment="Center" Margin="0,0,10,0" TextAlignment="Right"/>
@@ -53,19 +53,19 @@
                 <TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" Text="英語" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                 <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" Text="平均" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                 <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
-                    <TextBox TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Right" />
+                    <TextBox TextWrapping="Wrap" Text="{Binding JapaneseScore.Value}" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Right" />
                     <TextBlock VerticalAlignment="Center" Text="点" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                    <TextBox TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Right" />
+                    <TextBox TextWrapping="Wrap" Text="{Binding MathematicsScore.Value}" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Right" />
                     <TextBlock VerticalAlignment="Center" Text="点" />
                 </StackPanel>
                 <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
-                    <TextBox TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Right" />
+                    <TextBox TextWrapping="Wrap" Text="{Binding EnglishScore.Value}" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Right" />
                     <TextBlock VerticalAlignment="Center" Text="点" />
                 </StackPanel>
                 <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal">
-                    <TextBox TextWrapping="Wrap" Text="TextBox" IsReadOnly="True" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Right"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding Average.Value, Mode=OneWay}" IsReadOnly="True" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Right"/>
                     <TextBlock VerticalAlignment="Center" Text="点" />
                 </StackPanel>
             </Grid>

@@ -1,72 +1,51 @@
+using System;
+using System.Linq;
+using System.Reactive.Linq;
+using Accessibility;
+using Prism.Mvvm;
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
+
 namespace Sample1.Models
 {
     [System.Runtime.Serialization.DataContract]
-    public class TestPointInformation : Prism.Mvvm.BindableBase
+    public class TestPointInformation : BindableBase
     {
         /// <summary>試験結果のIDを取得・設定します。</summary>
-        public int Id { get; set; } = 0;
+        public int Id { get; } = 0;
 
-        private string testDay = string.Empty;
         /// <summary>試験日を取得・設定します。</summary>
         [System.Runtime.Serialization.DataMember]
-        public string TestDate
-        {
-            get { return testDay; }
-            set { SetProperty(ref testDay, value); }
-        }
+        public ReactivePropertySlim<string> TestDate { get; }
 
-        private int japanScore = 0;
         /// <summary>国語の得点を取得・設定します。</summary>
         [System.Runtime.Serialization.DataMember]
-        public int JapaneseScore
-        {
-            get { return japanScore; }
-            set
-            {
-                SetProperty(ref japanScore, value);
-                this.calcAverage();
-            }
-        }
+        public ReactivePropertySlim<int> JapaneseScore { get; } = new ReactivePropertySlim<int>(0);
 
-        private int mathScore = 0;
         /// <summary>数学の得点を取得・設定します。</summary>
         [System.Runtime.Serialization.DataMember]
-        public int MathematicsScore
-        {
-            get { return mathScore; }
-            set
-            {
-                SetProperty(ref mathScore, value);
-                this.calcAverage();
-            }
-        }
+        public ReactivePropertySlim<int> MathematicsScore { get; } = new ReactivePropertySlim<int>(0);
 
-        private int engScore = 0;
         /// <summary>英語の得点を取得・設定します。</summary>
         [System.Runtime.Serialization.DataMember]
-        public int EnglishScore
-        {
-            get { return engScore; }
-            set
-            {
-                SetProperty(ref engScore, value);
-                this.calcAverage();
-            }
-        }
+        public ReactivePropertySlim<int> EnglishScore { get; } = new ReactivePropertySlim<int>(0);
 
-        /// <summary>平均点を計算します。</summary>
-        private void calcAverage()
-        {
-            this.Average = (this.japanScore + this.mathScore + this.engScore) / 3;
-        }
-
-        private double ave = 0;
         /// <summary>平均点を取得します。</summary>
-        /// [System.Runtime.Serialization.DataMember]
-        public double Average
+        public ReadOnlyReactivePropertySlim<double> Average { get; }
+
+        public TestPointInformation(int id, string testDate)
         {
-            get { return ave; }
-            private set { SetProperty(ref ave, value); }
+            this.Id = id;
+            this.TestDate = new ReactivePropertySlim<string>(testDate);
+
+            // 平均点を計算する
+            this.Average = Observable.Merge( 
+                this.JapaneseScore,
+                this.MathematicsScore,
+                this.EnglishScore
+                )
+                .Select(_=>(this.JapaneseScore.Value+this.MathematicsScore.Value+this.EnglishScore.Value)/3.0)
+            .ToReadOnlyReactivePropertySlim();
         }
     }
 }

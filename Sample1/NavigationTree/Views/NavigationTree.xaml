@@ -10,16 +10,35 @@
     xmlns:ri="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-        <TreeView ItemsSource="{Binding TreeNodes}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <ri:EventToReactiveCommand Command="{Binding Loaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid  FocusManager.FocusedElement="{Binding ElementName=mainTree}">
+        <TreeView x:Name="mainTree" ItemsSource="{Binding TreeNodes}">
             <TreeView.Resources>
                 <Style TargetType="TreeViewItem">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded.Value, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" 
+                            Value="{Binding IsSelected.Value, Mode=TwoWay}" />
+                    <EventSetter Event="PreviewMouseRightButtonDown"
+                                 Handler="TreeViewItem_PreviewMouseRightButtonDown" />
                 </Style>
+                <!--context menuはresourceに置いて使い回す-->
+                <ContextMenu x:Key="TreeViewItemContextMenu">
+                    <MenuItem Header="Add a new data(_A)"
+                                          Command="{Binding AddNewDataCommand}" />
+                </ContextMenu>
             </TreeView.Resources>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type vm:TreeViewItem}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="ContextMenu" Value="{StaticResource TreeViewItemContextMenu}"/>
+                            </Style>
+                        </StackPanel.Style>
                         <Image Source="{Binding ItemImage.Value}" Width="25" Height="25" />
                         <TextBlock Text="{Binding ItemText.Value}" />
                     </StackPanel>

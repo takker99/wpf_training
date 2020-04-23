@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Linq;
+using System.Windows.Documents;
 using Prism.Mvvm;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -23,33 +24,57 @@ namespace Sample1.NavigationTree.ViewModels
 
         /// <summary>TreeViewItemが展開されているかを取得・設定します。</summary>
         public ReactivePropertySlim<bool> IsExpanded { get; set; }
+        /// <summary>
+        /// TreeViewItemが選択されているかどうか
+        /// </summary>
+        public ReactivePropertySlim<bool> IsSelected { get; set; }
+        /// <summary>
+        /// このTreeViewItemが"category"であるかどうか
+        /// </summary>
+        public ReadOnlyReactivePropertySlim<bool> IsCategory { get; }
+
+        public ReactiveCommand AddNewDataCommand { get; }
+
 
 
         /// <summary>コンストラクタ</summary>
-        /// <param name="treeItem">TreeViewItem の元データを表すobject。</param>
-        public TreeViewItem(object treeItem)
+        /// <param name="treeItem">TreeViewItem の元データを表すobject</param>
+        /// <param name="parent">このViewModelの親を表すNavigationTree</param>
+        public TreeViewItem(object treeItem, NavigationTree parent)
         {
+            // TreeViewItemをdefaultで展開状態とする
+            this.IsExpanded = new ReactivePropertySlim<bool>(true).AddTo(this._disposables);
+            this.IsSelected = new ReactivePropertySlim<bool>(false).AddTo(this._disposables);
             this.Children = new ReactiveCollection<TreeViewItem>().AddTo(this._disposables);
 
             this.SourceData = treeItem;
-            var imageFileName = string.Empty;
+            this.IsCategory = this.ObserveProperty(x => x.SourceData)// SourceDataを初期化してから出ないと正常にflagが立たないので注意！
+                .Select(data => !(data is null) && data is string)
+                .ToReadOnlyReactivePropertySlim()
+                .AddTo(this._disposables);
+
+            this._parent = parent;
+
+
+            string imageFileName = String.Empty;
 
             // read only reactive propertiesは
-            // 1. ObserveProperty
-            // 2. ToReadOnlyReactiveProperty[Slim]
-            // という手順を踏んでソースを登録する
+            // - ToReadOnlyReactivePropertySlim
+            // を使って初期化する。
+            // IObservableを継承していないpropertiesは、
+            // ObservePropertyを使ってObservableに変換する
             switch (this.SourceData)
             {
                 case Models.PersonalInformation p:
-                    this.ItemText = p.ObserveProperty(x => x.Name).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                    this.ItemText = p.Name.ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
                     imageFileName = "standing-man.png";
                     break;
                 case Models.PhysicalInformation phy:
-                    this.ItemText = phy.ObserveProperty(x => x.MeasurementDate).Select(d => d.HasValue ? d.Value.ToString("yyy年MM月dd日") : "新しい測定").ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                    this.ItemText = phy.MeasurementDate.Select(d => d.HasValue ? d.Value.ToString("yyy年MM月dd日") : "新しい測定").ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
                     imageFileName = "hearts.png";
                     break;
                 case Models.TestPointInformation test:
-                    this.ItemText = test.ObserveProperty(x => x.TestDate).ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
+                    this.ItemText = test.TestDate.ToReadOnlyReactivePropertySlim().AddTo(this._disposables);
                     imageFileName = "test.png";
                     break;
                 case string s:
@@ -62,13 +87,35 @@ namespace Sample1.NavigationTree.ViewModels
             var image = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/NavigationTree;component/Resources/" + imageFileName, UriKind.Absolute));
             this.ItemImage = new ReactivePropertySlim<System.Windows.Media.ImageSource>(image).AddTo(this._disposables);
 
-            // TreeViewItemをdefaultで展開状態とする
-            this.IsExpanded=new ReactivePropertySlim<bool>(true).AddTo(this._disposables);
+            // Commandの設定
+            this.AddNewDataCommand = new System.Collections.Generic.List<IObservable<bool>>()
+            {
+                this.IsSelected,
+                this.IsCategory
+            }
+            .CombineLatestValuesAreAllTrue()
+            .ToReactiveCommand()
+            // 新しいitemを追加する
+            .WithSubscribe(() => this.Children.Add(this._parent.createNewChild(this._nodeCategory)))
+            .AddTo(this._disposables);
         }
+
+        /// <summary>コンストラクタ。</summary>
+        /// <summary>コンストラクタ</summary>
+        /// <param name="treeItem">TreeViewItem の元データを表すobject</param>
+        /// <param name="parent">このViewModelの親を表すNavigationTree</param>
+        /// <param name="categoryType">カテゴリの種類を表す列挙型の内の1つ</param>
+        public TreeViewItem(string treeItem,
+                                     NavigationTree parent,
+                                     TreeNodeCategoryType categoryType)
+            : this(treeItem, parent)
+            => this._nodeCategory = categoryType;
 
         /// <summary>オブジェクトを破棄します。</summary>
         void IDisposable.Dispose() => this._disposables.Dispose();
 
+        private readonly NavigationTree _parent = null;
+        private readonly TreeNodeCategoryType _nodeCategory = TreeNodeCategoryType.NoCategory;
         /// <summary>ReactivePropertyのDispose用リスト</summary>
         private readonly System.Reactive.Disposables.CompositeDisposable _disposables
             = new System.Reactive.Disposables.CompositeDisposable();
