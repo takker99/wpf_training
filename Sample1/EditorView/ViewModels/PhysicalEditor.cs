@@ -7,7 +7,7 @@ using Reactive.Bindings.Extensions;
 
 namespace Sample1.EditorView.ViewModels
 {
-    public class PhysicalEditor : BindableBase, System.IDisposable, INavigationAware, IConfirmNavigationRequest
+    public class PhysicalEditor : BindableBase, IDisposable, INavigationAware, IConfirmNavigationRequest
     {
         // 本来、ReactivePropertyはconstructorで初期化するので、
         // 読み取り専用propertiesで良い。
