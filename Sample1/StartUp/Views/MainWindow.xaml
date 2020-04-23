@@ -33,7 +33,7 @@
         <material:ColorZone Grid.Row="0" Grid.ColumnSpan="3" Padding="3" CornerRadius="3"
                       Mode="Dark" HorizontalContentAlignment="Center"
                       material:ShadowAssist.ShadowDepth="Depth2">
-            <TextBlock Text="Prism .NET Core Application Sample"/>
+            <TextBlock Text="Prism .NET Core Application Sample" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
         </material:ColorZone>
         <ToolBar Grid.Row="1" Grid.ColumnSpan="3" />
         <ContentControl Grid.Row="2" Grid.Column="0" IsTabStop="False" prism:RegionManager.RegionName="NaviTree" />
