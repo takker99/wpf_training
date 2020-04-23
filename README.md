@@ -25,7 +25,7 @@ WPF applicationの自習用repository
   - 別なsample programで通信方法を習得して、できるようになったらこのprogramにも反映させてみる。
 - IdialogServiceを用いたdialogを使用
   - 実装は[WPF Prism episode: 16 ～ Prism7.2、ダイアログは IDialogService でって言ったよね！ ～](https://elf-mission.net/programming/wpf/episode16/)をほぼ踏襲。
-  
+
 ### sample3
 
 [WPF アプリを MVVM で作る](https://qiita.com/seka/items/50d253c824e8914f937e)をもとに作成したprogram
@@ -53,3 +53,10 @@ Livetを使用していた。その部分だけをPrism+ReactivePropertyで書�
 2. **コードの実行**
 3. commit
 を繰り返すようにしよう。
+
+### sample5
+
+[WPF Prism episode: 16 ～ Prism7.2、ダイアログは IDialogService でって言ったよね！ ～](https://elf-mission.net/programming/wpf/episode16/)を基に作成予定のprogram
+
+Dialog windowを使ったsample program...なのだが、すぐにdialog windowを使う状況にはならなそうなので、
+とりあえずsolutionだけ作り、実際の学習・codingは必要になってからにする。
