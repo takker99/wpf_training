@@ -1,10 +1,16 @@
-<Window x:Class="Sample1.StartUp.Views.MainWindow"
+<metro:MetroWindow x:Class="Sample1.StartUp.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    TitleCharacterCasing="Normal"
+    SaveWindowPosition="True"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="1"
     Title="{Binding Title.Value}" Height="350" Width="525">
     <!--Windowを閉じたときにViewModelsをDisposeする-->
     <i:Interaction.Triggers>
@@ -15,6 +21,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -23,14 +30,19 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="0.7*" />
         </Grid.ColumnDefinitions>
-        <ToolBar Grid.Row="0" Grid.ColumnSpan="3" />
-        <ContentControl Grid.Row="1" Grid.Column="0" IsTabStop="False" prism:RegionManager.RegionName="NaviTree" />
-        <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-        <ContentControl Grid.Row="1" Grid.Column="2" IsTabStop="False" prism:RegionManager.RegionName="EditorArea" />
-        <StatusBar Grid.Row="2" Grid.ColumnSpan="3">
+        <material:ColorZone Grid.Row="0" Grid.ColumnSpan="3" Padding="3" CornerRadius="3"
+                      Mode="Dark" HorizontalContentAlignment="Center"
+                      material:ShadowAssist.ShadowDepth="Depth2">
+            <TextBlock Text="Prism .NET Core Application Sample" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+        </material:ColorZone>
+        <ToolBar Grid.Row="1" Grid.ColumnSpan="3" />
+        <ContentControl Grid.Row="2" Grid.Column="0" IsTabStop="False" prism:RegionManager.RegionName="NaviTree" />
+        <GridSplitter Grid.Row="2" Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        <ContentControl Grid.Row="2" Grid.Column="2" IsTabStop="False" prism:RegionManager.RegionName="EditorArea" />
+        <StatusBar Grid.Row="3" Grid.ColumnSpan="3">
             <StatusBarItem />
             <StatusBarItem />
             <StatusBarItem />
         </StatusBar>
     </Grid>
-</Window>
+</metro:MetroWindow>

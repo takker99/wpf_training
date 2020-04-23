@@ -9,6 +9,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:ri="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
     prism:ViewModelLocator.AutoWireViewModel="True">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -18,7 +19,7 @@
     <Grid  FocusManager.FocusedElement="{Binding ElementName=mainTree}">
         <TreeView x:Name="mainTree" ItemsSource="{Binding TreeNodes}">
             <TreeView.Resources>
-                <Style TargetType="TreeViewItem">
+                <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded.Value, Mode=TwoWay}" />
                     <Setter Property="IsSelected" 
                             Value="{Binding IsSelected.Value, Mode=TwoWay}" />
@@ -39,7 +40,9 @@
                                 <Setter Property="ContextMenu" Value="{StaticResource TreeViewItemContextMenu}"/>
                             </Style>
                         </StackPanel.Style>
-                        <Image Source="{Binding ItemImage.Value}" Width="25" Height="25" />
+                        <material:PackIcon Kind="{Binding IconImage.Value}"
+                                 Width="24" Height="24"
+                                 Foreground="{DynamicResource PrimaryHueMidBrush}"/>
                         <TextBlock Text="{Binding ItemText.Value}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
