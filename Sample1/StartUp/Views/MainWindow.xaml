@@ -6,6 +6,10 @@
     xmlns:livet="http://schemas.livet-mvvm.net/2011/wpf"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    TitleCharacterCasing="Normal"
+    SaveWindowPosition="True"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="1"
     Title="{Binding Title.Value}" Height="350" Width="525">
     <!--Windowを閉じたときにViewModelsをDisposeする-->
     <i:Interaction.Triggers>
