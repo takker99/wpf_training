@@ -6,13 +6,15 @@ namespace Sample1.StartUp.ViewModels
     public class MainWindow : BindableBase, System.IDisposable
     {
         public ReactivePropertySlim<string> Title { get; }
-        public MainWindow()
+        public MainWindow(Prism.Regions.IRegionManager regionManager)
         {
+            // DI containerから、Region管理instanceを受け取る
+            this._regionManager = regionManager;
+
             this.Title = new ReactivePropertySlim<string>("Prism Application");
         }
 
-
-        // Windowを閉じるときにViewModelsをDisposeする
+        // Windowを閉じるときに全てのViewModelsをDisposeする
         protected virtual void Dispose(bool disposing)
         {
             if (!this._disposedValue)
@@ -20,6 +22,12 @@ namespace Sample1.StartUp.ViewModels
                 if (disposing)
                 {
                     this._disposables.Dispose();
+
+                    foreach (var region in this._regionManager.Regions)
+                    {
+                        // 全てのRegionが持つViewを削除する
+                        region.RemoveAll();
+                    }
                 }
                 this._disposedValue = true;
             }
@@ -31,6 +39,7 @@ namespace Sample1.StartUp.ViewModels
             => this.Dispose(true);
 
         private bool _disposedValue = false; // 重複する呼び出しを検出するには
+        private readonly Prism.Regions.IRegionManager _regionManager = null;
         private System.Reactive.Disposables.CompositeDisposable _disposables
             = new System.Reactive.Disposables.CompositeDisposable();
     }

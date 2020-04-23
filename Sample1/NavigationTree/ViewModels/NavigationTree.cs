@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Navigation;
 using Prism.Mvvm;
+using Prism.Navigation;
 using Prism.Regions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -18,7 +19,7 @@ namespace Sample1.NavigationTree.ViewModels
         TestPoint
     }
 
-    public class NavigationTree : BindableBase, System.IDisposable
+    public class NavigationTree : BindableBase, System.IDisposable, IDestructible
     {
         // Tree View は user が操作できないので read only で良い。
         public ReadOnlyReactiveCollection<TreeViewItem> TreeNodes { get; }
@@ -134,8 +135,25 @@ namespace Sample1.NavigationTree.ViewModels
             return rootNode;
         }
 
-        void System.IDisposable.Dispose() => this._disposables.Dispose();
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposedValue)
+            {
+                if (disposing)
+                {
+                    this._disposables.Dispose();
+                }
+                this._disposedValue = true;
+            }
+        }
+        public void Dispose()
+            => this.Dispose(true);
 
+        /// <summary>ViewModelを破棄します。</summary>
+        public void Destroy()
+            => this.Dispose();
+
+        private bool _disposedValue = false; // 重複する呼び出しを検出するには
         private readonly Models.AppData _appData = null;
         private readonly TreeViewItem _rootNode = null;
         private readonly IRegionManager _regionManager = null;
