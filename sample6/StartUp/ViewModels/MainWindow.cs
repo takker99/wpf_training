@@ -8,13 +8,14 @@ using Sample6.Services;
 using System.Threading.Tasks;
 using Sample6.Entities;
 using System.Windows.Navigation;
+using System.Data;
 
 namespace Sample6.StartUp.ViewModels
 {
     public class MainWindow : Utilities.ViewModelBase
     {
         /// <summary>コンソールの出力内容を取得します。</summary>
-        public ReadOnlyReactivePropertySlim<string> Console { get; }
+        public ReadOnlyReactivePropertySlim<DataTable> Console { get; }
 
         /// <summary>Dynamic型でキャラクターを取得します。</summary>
         public ReactiveCommand GetDynamic { get; }
@@ -65,7 +66,7 @@ namespace Sample6.StartUp.ViewModels
                 .WithSubscribe(() => this._buffer.Clear())
                 .AddTo(this._disposable);
 
-            this.Console = this._buffer.ConsoleText
+            this.Console = this._buffer.Data
                 .ToReadOnlyReactivePropertySlim()
                 .AddTo(this._disposable);
         }

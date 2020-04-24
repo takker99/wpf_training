@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
+using Reactive.Bindings.ObjectExtensions;
 using Sample6.Entities;
 
 namespace Sample6.Services
@@ -21,11 +23,24 @@ namespace Sample6.Services
 				characters = repository.GetTop10Id();
 			}
 
+            // データを作成する
+            // cf.https://teratail.com/questions/82476
+            var result = new DataTable("NewTable from Service");// newで新たにテーブルごと作り直すと、Viewに変更通知が出される。
+            result.Columns.Add("ID",typeof(long));
+            result.Columns.Add("名前",typeof(string));
+            result.Columns.Add("かな",typeof(string));
+            result.Columns.Add("誕生日",typeof(string));
+            result.Columns.Add("所属",typeof(string));
+            result.Columns.Add("斬魄刀",typeof(string));
+
 			foreach (dynamic character in characters)
 			{
-				console.AppendLineToBuffer($"ID: {character.ID}  名前: {character.CHARACTER_NAME}  かな: {character.KANA}  " +
-					$"誕生日: {character.BIRTHDAY}  所属: {character.ORGANIZATION_NAME}  斬魄刀: {character.ZANPAKUTOU_NAME}");
+                _ = result.Rows.Add(character.ID, character.CHARACTER_NAME, character.KANA,
+                                                character.BIRTHDAY, character.ORGANIZATION_NAME,
+                                                character.ZANPAKUTOU_NAME);
 			}
+
+            console.Data.Value = result;
 		}
 
 		/// <summary>フリガナ順でトップ10のキャラクターをコンソールに表示します。</summary>
@@ -41,13 +56,23 @@ namespace Sample6.Services
 				characters = repository.GetTop10Furigana();
 			}
 
-			foreach (BleachCharacter chara in characters)
+            // データを作成する
+            var result = new DataTable("NewTable from Service");// newで新たにテーブルごと作り直すと、Viewに変更通知が出される。
+            result.Columns.Add("ID",typeof(long));
+            result.Columns.Add("名前",typeof(string));
+            result.Columns.Add("かな",typeof(string));
+            result.Columns.Add("誕生日",typeof(string));
+            result.Columns.Add("所属",typeof(string));
+            result.Columns.Add("斬魄刀",typeof(string));
+
+			foreach (var character in characters)
 			{
-				console.AppendLineToBuffer($"ID: {chara.Id}  名前: {chara.Name}  かな: {chara.Furigana}  " +
-					$"誕生日: {chara.Birthday}  所属: {chara.OrganizationName}  斬魄刀: {chara.ZanpakutouName}");
+                _ = result.Rows.Add(character.Id.Value, character.Name.Value, character.Furigana.Value,
+                                                character.Birthday.Value, character.OrganizationName.Value,
+                                                character.ZanpakutouName.Value);
+            }
 
-
-			}
+            console.Data.Value = result;
 		}
 
 		/// <summary>護廷十三隊別にキャラクターをコンソールに表示します。</summary>
@@ -63,15 +88,26 @@ namespace Sample6.Services
 				parties = repository.GetCharactersByParty();
 			}
 
+            // データを作成する
+
+            var result = new DataTable("NewTable from Service");// newで新たにテーブルごと作り直すと、Viewに変更通知が出される。
+            result.Columns.Add("隊ID", typeof(long));
+            result.Columns.Add("隊名",typeof(string));
+            result.Columns.Add("ID", typeof(long));
+            result.Columns.Add("名前",typeof(string));
+            result.Columns.Add("斬魄刀",typeof(string));
+            result.Columns.Add("卍解",typeof(string));
+
 			foreach (SoulSocietyParty party in parties)
 			{
-				console.AppendLineToBuffer($"隊ID: {party.PartyId}　隊名: {party.PartyName}");
-
-				foreach (var chara in party.PartyMembers)
+				foreach (BleachCharacter character in party.PartyMembers)
 				{
-					console.AppendLineToBuffer($"\tID: {chara.Id}  名前: {chara.Name}　斬魄刀: {chara.ZanpakutouName}　卍解: {chara.BankaiName}");
+                    _ = result.Rows.Add(party.PartyId, party.PartyName, character.Id.Value, character.Name.Value,
+                                                    character.ZanpakutouName.Value, character.BankaiName.Value);
 				}
 			}
+
+            console.Data.Value = result;
 		}
 
 		/// <summary>Insertしたキャラクターを表示します。</summary>
@@ -107,10 +143,21 @@ namespace Sample6.Services
 				newCharacters = await repository.GetCharactersByIdOrverAsync(seq);
 			}
 
-			foreach (var chara in newCharacters)
+            // データを作成する
+
+            var result = new DataTable("NewTable from Service");// newで新たにテーブルごと作り直すと、Viewに変更通知が出される。
+            result.Columns.Add("ID",typeof(long));
+            result.Columns.Add("名前",typeof(string));
+            result.Columns.Add("ふりかな",typeof(string));
+            result.Columns.Add("所属",typeof(string));
+
+			foreach (var character in newCharacters)
 			{
-				console.AppendLineToBuffer($"ID: {chara.Id}  名前: {chara.Name}　ふりがな: {chara.Furigana}　所属: {chara.OrganizationName}");
+                _ = result.Rows.Add(character.Id.Value, character.Name.Value, character.Furigana.Value,
+                                                character.OrganizationName.Value);
 			}
+
+            console.Data.Value = result;
 		}
 
         /// <summary>登録用のキャラクターリストを生成します。</summary>
