@@ -15,7 +15,7 @@ namespace Sample6.DBAccess.Connection
         /// <summary>接続設定を読み込みます。</summary>
         /// <returns>接続設定を表すDbConnectionSetting。</returns>
         public DbConnectionSetting Load() 
-            => Utilities.SerializeUtility.DeserializeFromFile<DbConnectionSetting>(this.getSettingFilePath());
+            => Utilities.SerializeUtility.Deserialize<DbConnectionSetting>(this.getSettingFilePath());
 
         /// <summary>接続設定ファイルのパスを取得します。</summary>
         /// <returns>接続設定ファイルのパスを表す文字列。</returns>

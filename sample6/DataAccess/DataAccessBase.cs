@@ -15,6 +15,6 @@ namespace Sample6.DataAccess
 
 		/// <summary>コンストラクタ。</summary>
 		public DataAccessBase()
-			: base(new DBAccess.Connection.DbConnectSettingLoaderBase(System.String.Empty, "DbConnectSetting.xml")) { }
+			: base(new DBAccess.Connection.DbConnectSettingLoaderBase(System.String.Empty, "DbConnectSetting.json")) { }
 	}
 }
