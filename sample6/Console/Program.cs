@@ -12,11 +12,18 @@ namespace Sample6.Console
 
             // System.Text.Jsonのテストコード
 
-            var testData = new DBAccess.Connection.DbConnectInformation()
+            var testData = new DBAccess.Connection.DbConnectionSetting()
             {
-                DataSource = @"{exePath}\SampleDb.sqlite3",
-                DbType = DBAccess.Connection.DatabaseType.SQLite,
-                Number = 0,
+                TargetNumber = 0,
+                ConnectInformations = new System.Collections.Generic.List<DBAccess.Connection.DbConnectInformation>()
+                {
+                    new DBAccess.Connection.DbConnectInformation()
+                    {
+                        DataSource = @"{exePath}\SampleDb.sqlite3",
+                        DbType = DBAccess.Connection.DatabaseType.SQLite,
+                        Number = 0,
+                    }
+                },
             };
 
             var jsonOptions = new JsonSerializerOptions()
@@ -35,8 +42,8 @@ namespace Sample6.Console
             WriteLine("Successfully serialized!");
 
             // fileから読み込む
-            var utf8Reader = new Utf8JsonReader(output);
-            var testData2=JsonSerializer.Deserialize<DBAccess.Connection.DbConnectInformation>(ref utf8Reader, jsonOptions) ;
+            var utf8Reader = new Utf8JsonReader(System.IO.File.ReadAllBytes(path));
+            var testData2 = JsonSerializer.Deserialize<DBAccess.Connection.DbConnectInformation>(ref utf8Reader, jsonOptions);
 
             WriteLine("Successfully Desirialized!");
             WriteLine("Result:");
