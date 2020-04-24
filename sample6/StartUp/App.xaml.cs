@@ -1,11 +1,12 @@
-﻿using Prism.Ioc;
+using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Unity;
 using System;
 using System.Reflection;
 using System.Windows;
 
-namespace Sample3.StartUp
+namespace Sample6.StartUp
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -15,7 +16,11 @@ namespace Sample3.StartUp
         protected override Window CreateShell()
             => this.Container.Resolve<Views.MainWindow>();
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+            => containerRegistry.Register<Services.IService, Services.Service>();
+
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) 
+            => moduleCatalog.AddModule<Services.Module>();
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する
         protected override void ConfigureViewModelLocator()

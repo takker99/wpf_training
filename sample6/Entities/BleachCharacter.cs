@@ -3,10 +3,8 @@ using Reactive.Bindings;
 namespace Sample6.Entities
 {
     /// <summary>BLEACHのキャラクターを表します。</summary>
-    public class BleachCharacter : Utilities.BindableModelBase
+    public class BleachCharacter
     {
-        private ReactivePropertySlim<long> _id;
-
         /// <summary>キャラクターIDを取得・設定します。</summary>
         public ReactivePropertySlim<long> Id
         {
@@ -17,9 +15,6 @@ namespace Sample6.Entities
                 this._id = value;
             }
         }
-
-
-        private ReactivePropertySlim<string> _name;
 
         /// <summary>キャラクター名を取得・設定します。</summary>
         public ReactivePropertySlim<string> Name
@@ -32,25 +27,25 @@ namespace Sample6.Entities
             }
         }
 
-        public ReactivePropertySlim<string> Furigana { get; set; } = new ReactivePropertySlim<string>(string.Empty);
+        public ReactivePropertySlim<string> Furigana { get; set; } = new ReactivePropertySlim<string>(System.String.Empty);
 
-        public ReactivePropertySlim<string> Birthday { get; set; } = new ReactivePropertySlim<string>(string.Empty);
+        public ReactivePropertySlim<string> Birthday { get; set; } = new ReactivePropertySlim<string>(System.String.Empty);
 
         public ReactivePropertySlim<long> OrganizationId { get; set; } = new ReactivePropertySlim<long>(0);
 
-        public ReactivePropertySlim<string> OrganizationName { get; set; } = new ReactivePropertySlim<string>(string.Empty);
+        public ReactivePropertySlim<string> OrganizationName { get; set; } = new ReactivePropertySlim<string>(System.String.Empty);
 
         public ReactivePropertySlim<long> ZanpakutouId { get; set; } = new ReactivePropertySlim<long>(0);
 
-        public ReactivePropertySlim<string> ZanpakutouName { get; set; } = new ReactivePropertySlim<string>(string.Empty);
+        public ReactivePropertySlim<string> ZanpakutouName { get; set; } = new ReactivePropertySlim<string>(System.String.Empty);
 
-        public ReactivePropertySlim<string> BankaiName { get; set; } = new ReactivePropertySlim<string>(string.Empty);
+        public ReactivePropertySlim<string> BankaiName { get; set; } = new ReactivePropertySlim<string>(System.String.Empty);
 
         /// <summary>コンストラクタ</summary>
         public BleachCharacter()
         {
             this._id = new ReactivePropertySlim<long>(0);
-            this._name = new ReactivePropertySlim<string>(string.Empty);
+            this._name = new ReactivePropertySlim<string>(System.String.Empty);
         }
 
         /// <summary>コンストラクタ</summary>
@@ -63,5 +58,8 @@ namespace Sample6.Entities
             this.Furigana.Value = kana;
             this.OrganizationId.Value = orgId;
         }
+
+        private ReactivePropertySlim<long> _id;
+        private ReactivePropertySlim<string> _name;
     }
 }

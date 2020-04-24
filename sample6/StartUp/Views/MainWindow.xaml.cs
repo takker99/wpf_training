@@ -1,12 +1,10 @@
-﻿using Prism.Mvvm;
-using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
+using MahApps.Metro.Controls;
 
-namespace Sample3.StartUp.ViewModels
+namespace Sample6.StartUp.Views
 {
-    public class MainWindow : BindableBase
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
-            => InitializedComponent();
+            => this.InitializeComponent();
     }
 }

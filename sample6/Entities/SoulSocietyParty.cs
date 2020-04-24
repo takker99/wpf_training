@@ -9,7 +9,7 @@ namespace Sample6.Entities
         public long PartyId { get; set; } = 0;
 
         /// <summary>組織名を取得・設定します。</summary>
-        public string PartyName { get; set; } = string.Empty;
+        public string PartyName { get; set; } = System.String.Empty;
 
         /// <summary>所属隊員を取得します。</summary>
         public List<BleachCharacter> PartyMembers { get; } = new List<BleachCharacter>();

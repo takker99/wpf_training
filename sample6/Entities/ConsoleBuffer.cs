@@ -8,10 +8,8 @@ namespace Sample6.Entities
     {
         public ReactivePropertySlim<string> ConsoleText { get; set; }
 
-        public void Clear()
-        {
-            this.ConsoleText.Value = string.Empty;
-        }
+        public void Clear() 
+            => this.ConsoleText.Value = System.String.Empty;
 
         public void AppendLineToBuffer(string text)
         {
@@ -21,10 +19,8 @@ namespace Sample6.Entities
             this.ConsoleText.Value = buf.ToString();
         }
 
-        public ConsoleBuffer()
-        {
-            this.ConsoleText = new ReactivePropertySlim<string>(string.Empty)
-                .AddTo(this.Disposable);
-        }
+        public ConsoleBuffer() 
+            => this.ConsoleText = new ReactivePropertySlim<string>(System.String.Empty)
+                .AddTo(this._disposable);
     }
 }
