@@ -1,4 +1,4 @@
-namespace Takker.DataAccess
+namespace Sample7.DataAccess
 {
 	public class RepositoryFactory : IRepositoryFactory
 	{

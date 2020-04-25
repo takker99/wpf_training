@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Takker.Entities
+namespace Sample7.Entities
 {
     /// <summary>護廷十三隊の隊を表します。</summary>
     public class SoulSocietyParty

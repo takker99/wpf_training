@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Reactive.Bindings.ObjectExtensions;
-using Takker.Entities;
+using Sample7.Entities;
 
-namespace Takker.Services
+namespace Sample7.Services
 {
 	/// <summary>サンプルアプリ用のサービスを表します。</summary>
 	public class Service : IService

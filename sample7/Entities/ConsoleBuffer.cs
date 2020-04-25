@@ -3,9 +3,9 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System.Data;
 
-namespace Takker.Entities
+namespace Sample7.Entities
 {
-    public class ConsoleBuffer : Utilities.BindableModelBase
+    public class ConsoleBuffer : Takker.Utilities.BindableModelBase
     {
         public ReactivePropertySlim<DataTable> Data { get; set; }
 

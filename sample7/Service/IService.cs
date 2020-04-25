@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Takker.Entities;
+using Sample7.Entities;
 
-namespace Takker.Services
+namespace Sample7.Services
 {
     // Model layerのうち、UIのVMと直接やり取りし合う部分。
     // VMはこのinterfaceを通じてModelと通信する。

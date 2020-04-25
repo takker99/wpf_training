@@ -2,7 +2,7 @@ using System.Data;
 using Reactive.Bindings;
 using static Dapper.SqlMapper;
 
-namespace Takker.DataAccess
+namespace Sample7.DataAccess
 {
 	public class ReactiveTypeHandler<T> : TypeHandler<ReactiveProperty<T>>
         where T: struct

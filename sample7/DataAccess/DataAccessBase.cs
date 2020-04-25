@@ -1,9 +1,9 @@
 using Dapper;
 
-namespace Takker.DataAccess
+namespace Sample7.DataAccess
 {
 	/// <summary>DapperSampleサンプルアプリのDataAccess用親クラスを表します。</summary>
-	public abstract class DataAccessBase : DBAccess.DbAccessBase
+	public abstract class DataAccessBase : Takker.DBAccess.DbAccessBase
 	{
 		/// <summary>Dapperのマッピング設定を初期化します。</summary>
 		public static void InitializedSqlMapper()
@@ -15,6 +15,6 @@ namespace Takker.DataAccess
 
 		/// <summary>コンストラクタ。</summary>
 		public DataAccessBase()
-			: base(new DBAccess.Connection.DbConnectSettingLoaderBase(System.String.Empty, "DbConnectSetting.json")) { }
+			: base(new Takker.DBAccess.Connection.DbConnectSettingLoaderBase(System.String.Empty, "DbConnectSetting.json")) { }
 	}
 }

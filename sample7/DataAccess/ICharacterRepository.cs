@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Takker.DataAccess
+namespace Sample7.DataAccess
 {
 	/// <summary>キャラクター用リポジトリを表します。</summary>
-	public interface ICharacterRepository : DBAccess.IDbAccess, IDisposable
+	public interface ICharacterRepository : Takker.DBAccess.IDbAccess, IDisposable
 	{
 		/// <summary>護廷十三隊別にキャラクターを取得します。</summary>
 		/// <returns>取得した護廷十三隊を表すList<SoulSocietyParty>。</returns>

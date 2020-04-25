@@ -3,9 +3,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
-using Takker.Entities;
+using Sample7.Entities;
 
-namespace Takker.DataAccess
+namespace Sample7.DataAccess
 {
 	/// <summary>キャラクター用リポジトリを表します。</summary>
 	public class CharacterRepository : DataAccessBase, ICharacterRepository

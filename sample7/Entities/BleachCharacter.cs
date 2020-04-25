@@ -1,6 +1,6 @@
 using Reactive.Bindings;
 
-namespace Takker.Entities
+namespace Sample7.Entities
 {
     /// <summary>BLEACHのキャラクターを表します。</summary>
     public class BleachCharacter

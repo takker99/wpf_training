@@ -1,8 +1,8 @@
 using Prism.Ioc;
 using Prism.Modularity;
-using Takker.DataAccess;
+using Sample7.DataAccess;
 
-namespace Takker.Services
+namespace Sample7.Services
 {
 	/// <summary>ApplicationLayerモジュールを表します。</summary>
 	public class Module : IModule

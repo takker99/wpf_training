@@ -5,7 +5,7 @@ using Prism.Unity;
 using System;
 using System.Reflection;
 using System.Windows;
-using Takker.Services;
+using Sample7.Services;
 
 namespace Sample7.StartUp
 {
@@ -21,7 +21,7 @@ namespace Sample7.StartUp
             => containerRegistry.Register<IService, Service>();
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) 
-            => _ = moduleCatalog.AddModule<Takker.Services.Module>();
+            => _ = moduleCatalog.AddModule<Services.Module>();
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する
         protected override void ConfigureViewModelLocator()
