@@ -1,0 +1,10 @@
+{
+  "TargetNumber": 0,
+  "ConnectInformations": [
+    {
+      "Number": 0,
+      "DbType": 1,
+      "DataSource": "{exePath}\\SampleDb.sqlite3"
+    }
+  ]
+}
