@@ -3,6 +3,8 @@
 				   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				   xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
 				   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                   xmlns:vm="clr-namespace:Sample7.StartUp.ViewModels"
+                   xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
 				   xmlns:prism="http://prismlibrary.com/"
 				   xmlns:trigger="clr-namespace:Takker.Triggers;assembly=Behaviors"
 				   prism:ViewModelLocator.AutoWireViewModel="True"
@@ -17,44 +19,103 @@
             <trigger:DataContextDispose />
         </bh:EventTrigger>
     </bh:Interaction.Triggers>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"
-						   MinHeight="50" />
-            <RowDefinition Height="0.8*" />
-            <RowDefinition Height="0.1*"
-						   MinHeight="50" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0"
-					Margin="10, 0, 0, 0"
-					Orientation="Horizontal">
-            <Button Content="Dynamic型で取得"
-					Command="{Binding GetDynamic}"/>
-            <Button Content="BleachCharacter型で取得"
-					Margin="10, 0, 0, 0"
-					Command="{Binding GetBleachCharacter}"/>
-            <Button Content="護廷十三隊別に取得"
-					Margin="10, 0, 0, 0"
-					Command="{Binding GetCharacterByParty}"/>
-            <Button Content="データをInsert！"
-					Margin="10, 0, 0, 0"
-					Style="{StaticResource MaterialDesignRaisedAccentButton}"
-					Command="{Binding InsertCharacter}"/>
-        </StackPanel>
-        <!--<TextBlock Grid.Row="1" TextWrapping="Wrap"
-				   Margin="10, 5, 0, 0"
-				   Style="{StaticResource MaterialDesignBody2TextBlock}"
-				   Text="{Binding Console.Value, Mode=OneWay}"/>-->
-        <DataGrid Grid.Row="1" Margin="10 5 0 0"
-                  ItemsSource="{Binding Console.Value, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                  CanUserSortColumns="True"
-                  CanUserAddRows="False" />
-        <StackPanel Grid.Row="2"
-					Margin="10, 0, 0, 0"
-					Orientation="Horizontal">
-            <Button Content="クリア"
-					Margin="10, 0, 0, 0"
-					Command="{Binding ClearConsole}"/>
-        </StackPanel>
-    </Grid>
+    <Window.Resources>
+        <!--HamburgerMenuItemのDataTemplateはHamburgerMenu tag内には書けない-->
+        <DataTemplate x:Key="MenuData" DataType="{x:Type vm:HamburgerMenuItem}">
+            <StackPanel Orientation="Horizontal">
+                <material:PackIcon Kind="{Binding IconKind.Value}"
+                                 Margin="8, 10, 30, 10"
+                                 Width="24" Height="24"
+                                 Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                <TextBlock Text="{Binding MenuText.Value}"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <metro:HamburgerMenu Grid.Column="0"
+                         ItemTemplate="{StaticResource MenuData}"
+                         OptionsItemTemplate="{StaticResource MenuData}"
+                         ItemsSource="{Binding MenuItems}"
+                         OptionsItemsSource="{Binding OptionMenuItems}"
+                         PaneBackground="{StaticResource MaterialDesignDarkBackground}"
+                         OpenPaneLength="300"
+                         DisplayMode="CompactOverlay"
+                         IsPaneOpen="{Binding IsHamburgerMenuPanelOpened.Value, Mode=TwoWay}"
+                         SelectedItem="{Binding SelectedMenu.Value, Mode=TwoWay}"
+                         SelectedIndex="{Binding SelectedMenuIndex.Value, Mode=TwoWay}"
+                         SelectedOptionsItem="{Binding SelectedOption.Value, Mode=TwoWay}"
+                         SelectedOptionsIndex="{Binding SelectedOptionIndex.Value, Mode=TwoWay}">
+        <metro:HamburgerMenu.Content>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Menu Grid.Row="0" Grid.ColumnSpan="3" IsMainMenu="True">
+                    <MenuItem Header="_File">
+                        <MenuItem Header="Save">
+                            <MenuItem.Icon>
+                                <material:PackIcon Kind="ContentSave" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Save As.." />
+                        <MenuItem Header="Exit" InputGestureText="Ctrl+E">
+                            <MenuItem.Icon>
+                                <material:PackIcon Kind="ExitToApp" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="Excellent" IsCheckable="True" IsChecked="True" />
+                        <MenuItem Header="Rubbish" IsCheckable="True" />
+                        <MenuItem Header="Dig Deeper" InputGestureText="Ctrl+D">
+                            <MenuItem Header="Enlightenment?" IsCheckable="True" />
+                            <MenuItem Header="Disappointment" IsCheckable="True" />
+                        </MenuItem>
+                        <MenuItem Header="Look Deeper" InputGestureText="Ctrl+D">
+                            <MenuItem Header="Plain" />
+                            <MenuItem Header="Ice Cream" />
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_Edit">
+                        <MenuItem Header="_Cut" Command="Cut">
+                            <MenuItem.Icon>
+                                <material:PackIcon Kind="ContentCut" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Copy" Command="Copy">
+                            <MenuItem.Icon>
+                                <material:PackIcon Kind="ContentCopy" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Paste" Command="Paste">
+                            <MenuItem.Icon>
+                                <material:PackIcon Kind="ContentPaste" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+                <GridSplitter Grid.Row="1" Grid.Column="1"
+                      Width="5" HorizontalAlignment="Stretch"/>
+                <StatusBar Grid.Row="3" Grid.ColumnSpan="3">
+                    <StatusBarItem>
+                        <TextBlock Text="ステータスバーのサンプル" />
+                    </StatusBarItem>
+                    <Separator />
+                    <StatusBarItem>
+                        <ProgressBar IsIndeterminate="True" Width="150" Height="10"/>
+                    </StatusBarItem>
+                    <StatusBarItem>
+                        <TextBlock Text="情報表示に使用します" />
+                    </StatusBarItem>
+                </StatusBar>
+            </Grid>
+        </metro:HamburgerMenu.Content>
+    </metro:HamburgerMenu>
 </metro:MetroWindow>
