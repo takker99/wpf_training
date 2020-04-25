@@ -60,3 +60,13 @@ Livetを使用していた。その部分だけをPrism+ReactivePropertyで書�
 
 Dialog windowを使ったsample program...なのだが、すぐにdialog windowを使う状況にはならなそうなので、
 とりあえずsolutionだけ作り、実際の学習・codingは必要になってからにする。
+
+### sample6
+
+[WPF MVVM L@bo #5 ～ ようこそ Dapper 至上主義の DataAccess へ ～](https://elf-mission.net/programming/wpf/mvvm-labo/phase05/)を基に作成したprogram
+
+元のsample programから必要なfileをコピーし、programの構造を把握しながら名前空間の修正とproject分割をおこなった。DDDを知らないので、programの構造を理解するのにかなり時間がかかった。今でもほとんど理解はしていないが、このprogramの設計の意図は把握できた。
+
+元のsample programからアレンジした機能：
+- console出力から、DataGridを用いた表示に変更
+- DB接続設定ファイルをxmlからjsonに変更
