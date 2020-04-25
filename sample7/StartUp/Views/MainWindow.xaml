@@ -6,6 +6,7 @@
                    xmlns:vm="clr-namespace:Sample7.StartUp.ViewModels"
                    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
 				   xmlns:prism="http://prismlibrary.com/"
+				   xmlns:i="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
 				   xmlns:trigger="clr-namespace:Takker.Triggers;assembly=Behaviors"
 				   prism:ViewModelLocator.AutoWireViewModel="True"
 				   Title="DapperSample"
@@ -15,6 +16,9 @@
 				   BorderThickness="1"
 				   WindowStartupLocation="CenterScreen">
     <bh:Interaction.Triggers>
+        <bh:EventTrigger EventName="ContentRendered">
+            <i:EventToReactiveCommand Command="{Binding ContentRendered}"/>
+        </bh:EventTrigger>
         <bh:EventTrigger EventName="Closed">
             <trigger:DataContextDispose />
         </bh:EventTrigger>
@@ -33,6 +37,13 @@
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
+	<metro:MetroWindow.RightWindowCommands>
+		<metro:WindowCommands>
+			<Button Content="{material:PackIcon Kind=HomeOutline}"
+					Command="{Binding HomeCommand}"
+					ToolTip="StartUp Viewを表示"/>
+		</metro:WindowCommands>
+	</metro:MetroWindow.RightWindowCommands>
     <metro:HamburgerMenu Grid.Column="0"
                          ItemTemplate="{StaticResource MenuData}"
                          OptionsItemTemplate="{StaticResource MenuData}"
@@ -40,7 +51,7 @@
                          OptionsItemsSource="{Binding OptionMenuItems}"
                          PaneBackground="{StaticResource MaterialDesignDarkBackground}"
                          OpenPaneLength="300"
-                         DisplayMode="CompactOverlay"
+                         DisplayMode="{Binding HamburgerMenuDisplayMode.Value}"
                          IsPaneOpen="{Binding IsHamburgerMenuPanelOpened.Value, Mode=TwoWay}"
                          SelectedItem="{Binding SelectedMenu.Value, Mode=TwoWay}"
                          SelectedIndex="{Binding SelectedMenuIndex.Value, Mode=TwoWay}"
@@ -50,15 +61,15 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Menu Grid.Row="0" Grid.ColumnSpan="3" IsMainMenu="True">
+                <material:ColorZone Mode="Dark" Padding="5">
+                    <TextBlock Text="Task Management Tool"
+							   HorizontalAlignment="Center"
+							   Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+                </material:ColorZone>
+                <metro:TransitioningContentControl x:Name="ContentRegion" Grid.Row="1" prism:RegionManager.RegionName="ContentRegion" Transition="{Binding ContentControlTransition.Value}"/> 
+                <!--<Menu Grid.Row="0" Grid.ColumnSpan="3" IsMainMenu="True">
                     <MenuItem Header="_File">
                         <MenuItem Header="Save">
                             <MenuItem.Icon>
@@ -101,8 +112,6 @@
                         </MenuItem>
                     </MenuItem>
                 </Menu>
-                <GridSplitter Grid.Row="1" Grid.Column="1"
-                      Width="5" HorizontalAlignment="Stretch"/>
                 <StatusBar Grid.Row="3" Grid.ColumnSpan="3">
                     <StatusBarItem>
                         <TextBlock Text="ステータスバーのサンプル" />
@@ -114,7 +123,7 @@
                     <StatusBarItem>
                         <TextBlock Text="情報表示に使用します" />
                     </StatusBarItem>
-                </StatusBar>
+                </StatusBar>-->
             </Grid>
         </metro:HamburgerMenu.Content>
     </metro:HamburgerMenu>

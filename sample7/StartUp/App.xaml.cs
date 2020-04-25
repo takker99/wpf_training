@@ -5,7 +5,6 @@ using Prism.Unity;
 using System;
 using System.Reflection;
 using System.Windows;
-using Sample7.Services;
 
 namespace Sample7.StartUp
 {
@@ -17,11 +16,28 @@ namespace Sample7.StartUp
         protected override Window CreateShell()
             => this.Container.Resolve<Views.MainWindow>();
 
+        /// <summary>
+        /// DI containgerにobjectsを登録する
+        /// </summary>
+        /// <param name="containerRegistry">DI container</param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
-            => containerRegistry.Register<IService, Service>();
+        {
+            containerRegistry.RegisterSingleton<Setting.IApplicationSetting,Setting.ApplicationSetting>();
+            containerRegistry.Register<Services.IService, Services.Service>();
+            containerRegistry.RegisterSingleton<HamburgerMenuService.IService, HamburgerMenuService.Service>();
+        }
 
-        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) 
-            => _ = moduleCatalog.AddModule<Services.Module>();
+        /// <summary>
+        /// Moduleを登録する
+        /// </summary>
+        /// <param name="moduleCatalog">登録先catalog interface</param>
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            // 名前の重複を防ぐために、名前空間を付け加えている
+            moduleCatalog.AddModule<Services.Module>(nameof(Services)+nameof(Services.Module),InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule<HamburgerMenuService.Module>(nameof(HamburgerMenuService)+nameof(HamburgerMenuService.Module),InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule<Regions.Module>(nameof(Regions)+nameof(Regions.Module),InitializationMode.WhenAvailable);
+        }
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する
         protected override void ConfigureViewModelLocator()

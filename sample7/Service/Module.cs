@@ -12,9 +12,8 @@ namespace Sample7.Services
 		public void OnInitialized(IContainerProvider containerProvider)
 			=> DataAccessBase.InitializedSqlMapper();
 
-		/// <summary>DIコンテナへ型を登録します。</summary>
-		/// <param name="containerRegistry">登録用のDIコンテナを表すIContainerRegistry。</param>
-		public void RegisterTypes(IContainerRegistry containerRegistry)
-			=> containerRegistry.Register<IRepositoryFactory, RepositoryFactory>();
+        /// <summary>DIコンテナへ型を登録します。</summary>
+        /// <param name="containerRegistry">登録用のDIコンテナを表すIContainerRegistry。</param>
+        public void RegisterTypes(IContainerRegistry containerRegistry) { }
 	}
 }

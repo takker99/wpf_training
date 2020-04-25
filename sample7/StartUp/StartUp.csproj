@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="LivetCask.Behaviors" Version="3.2.2.2" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
+    <PackageReference Include="MaterialDesignColors" Version="1.2.3" />
     <PackageReference Include="MaterialDesignThemes" Version="3.1.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.0" />
     <PackageReference Include="Prism.Unity" Version="7.2.0.1422" />
@@ -18,11 +19,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Behaviors\Behaviors.csproj" />
+    <ProjectReference Include="..\HamburgerMenuService\HamburgerMenuService.csproj" />
+    <ProjectReference Include="..\Sample7.Regions\Sample7.Regions.csproj" />
+    <ProjectReference Include="..\Sample7.Setting\Sample7.Setting.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
+    <ProjectReference Include="..\Takker.Setting\Takker.Setting.csproj" />
     <ProjectReference Include="..\Utilities\Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="DbConnectSetting.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
