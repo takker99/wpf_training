@@ -4,6 +4,9 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>Sample7.Regions</AssemblyName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;NU1701</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MaterialDesignThemes" Version="3.1.0" />
@@ -17,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sample7.Setting\Sample7.Setting.csproj" />
-    <ProjectReference Include="..\Utilities\Utilities.csproj" />
+    <ProjectReference Include="..\Utilities\Takker.Utilities.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appSettings.json">

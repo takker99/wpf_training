@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Sample7.Entities;
 
 namespace Sample7.Services
 {
@@ -30,7 +29,7 @@ namespace Sample7.Services
         /// - defaultのProject(INBOXまたは設定ファイルで設定したProject)に放り込む
         /// </summary>
         /// <param name="content"></param>
-        public void CreateTaskAsync(string content);
+        public Task CreateTaskAsync(string content);
 
         public void ShowAllTasks();
 

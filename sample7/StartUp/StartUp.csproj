@@ -1,9 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;NU1701</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,9 +26,9 @@
     <ProjectReference Include="..\HamburgerMenuService\HamburgerMenuService.csproj" />
     <ProjectReference Include="..\Sample7.Regions\Sample7.Regions.csproj" />
     <ProjectReference Include="..\Sample7.Setting\Sample7.Setting.csproj" />
+    <ProjectReference Include="..\Sample7.TaskListPanel\Sample7.TaskListPanel.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
-    <ProjectReference Include="..\Takker.Setting\Takker.Setting.csproj" />
-    <ProjectReference Include="..\Utilities\Utilities.csproj" />
+    <ProjectReference Include="..\Utilities\Takker.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

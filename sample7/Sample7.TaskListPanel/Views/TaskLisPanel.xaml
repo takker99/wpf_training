@@ -1,14 +1,79 @@
-﻿<UserControl x:Class="Sample7.TaskListPanel.Views.TaskListPanel"
+<UserControl x:Class="Sample7.TaskListPanel.Views.TaskListPanel"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Sample7.TaskListPanel.Views"
+        xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:vm="clr-namspace:Sample7.TaskListPanel.ViewModels"
+        xmlns:util="clr-namespace:Takker.Utilities;assembly=Takker.Utilities"
+        xmlns:ent="clr-namespace:Takker.Entities;assembly=Entities"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="Prism Application" Height="350" Width="525">
+        d:DesignHeight="600" d:DesignWidth="800"
+        MinHeight="670">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1.2*" MinHeight="180"/>
+            <RowDefinition Height="1*" MinHeight="140"/>
+        </Grid.RowDefinitions>
+        <material:ColorZone Grid.Row="0"
+        Mode="Standard"
+        Padding="4 0 8 0"
+        CornerRadius="2"
+        Panel.ZIndex="1"
+        Margin="8 0 0 8"
+        material:ShadowAssist.ShadowDepth="Depth1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Margin="8 0 0 0"
+            BorderThickness="0" MinWidth="200"
+            VerticalAlignment="Center" 
+            Text="{Binding Content.Value}"
+            material:HintAssist.Hint="Build a search bar"
+            material:TextFieldAssist.DecorationVisibility="Hidden"/>
+                <Button Grid.Column="2"
+            Style="{DynamicResource MaterialDesignToolButton}"
+            Command="{Binding AddTaskCommand}"
+            >
+                    <material:PackIcon Kind="Plus" Opacity=".56"
+              Margin="8 0 0 0" />
+                </Button>
+            </Grid>
+        </material:ColorZone>
+        <ListBox Grid.Row="1" ItemsSource="{Binding TaskList}"
+                     HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem.Value, Mode=TwoWay}"
+                     VirtualizingPanel.IsContainerVirtualizable="True" VirtualizingPanel.VirtualizationMode="Recycling">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:TaskListItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Id.Value}" />
+                        <TextBlock Grid.Column="1" Text="{Binding Content.Value}" />
+                        <material:TimePicker Is24Hours="True"
+                                             SelectedTime="{Binding Deadline.Value}" />
+                        <ComboBox Grid.Column="2"
+                              material:HintAssist.Hint="Transition"
+                              material:HintAssist.FloatingScale="1.2"
+                              material:HintAssist.FloatingOffset="0, -30"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              ItemsSource="{Binding Source={util:EnumBindingSource EnumType={x:Type ent:ActiveStatus}}}"
+                              SelectedItem="{Binding ContentControlTransition.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

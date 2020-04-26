@@ -6,7 +6,7 @@
              xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:hg="clr-namespace:Takker.Utilities;assembly=Utilities"
+             xmlns:hg="clr-namespace:Takker.Utilities;assembly=Takker.Utilities"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="800"
              prism:ViewModelLocator.AutoWireViewModel="True"
@@ -17,37 +17,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="2*"/>
             <RowDefinition Height="1.2*" MinHeight="180"/>
             <RowDefinition Height="1*" MinHeight="140"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <material:ColorZone Grid.Row="0" Grid.ColumnSpan="3"
-        Mode="Standard"
-        Padding="4 0 8 0"
-        CornerRadius="2"
-        Panel.ZIndex="1"
-        Margin="8 0 0 8"
-        material:ShadowAssist.ShadowDepth="Depth1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Margin="8 0 0 0"
-            material:HintAssist.Hint="Build a search bar"
-            material:TextFieldAssist.DecorationVisibility="Hidden"
-            BorderThickness="0" MinWidth="200"
-            VerticalAlignment="Center" />
-                <Button
-            Style="{DynamicResource MaterialDesignToolButton}"
-            Grid.Column="2">
-                    <material:PackIcon Kind="Plus" Opacity=".56"
-              Margin="8 0 0 0" />
-                </Button>
-            </Grid>
-        </material:ColorZone>
-        <GroupBox Grid.Row="2"
+        <GroupBox Grid.Row="0"
                   Header="HamburgerMenu プロパティ"
                   Margin="20, 10, 0, 20"
                   Style="{DynamicResource MaterialDesignCardGroupBox}">
@@ -72,16 +46,7 @@
                 </StackPanel>
             </Grid>
         </GroupBox>
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Margin="0 8 0 0" 
-                  AutoGenerateColumns="False"
-                  CanUserSortColumns="True" 
-                  CanUserAddRows="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="名前"/>
-                <DataGridCheckBoxColumn Header="認証済み" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <GroupBox Grid.Row="3" Margin="20, 10, 0, 20"
+        <GroupBox Grid.Row="1" Margin="20, 10, 0, 20"
                       Header="TransitioningContentControl プロパティ"
                       Style="{DynamicResource MaterialDesignCardGroupBox}">
             <Grid>
@@ -99,7 +64,7 @@
                               SelectedItem="{Binding ContentControlTransition.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </GroupBox>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="Start Up" Margin="0, 20, 10, 0"
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Start Up" Margin="0, 20, 10, 0"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Top"
                    Foreground="{StaticResource SecondaryAccentBrush}"

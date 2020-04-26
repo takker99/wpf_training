@@ -4,7 +4,12 @@ using Takker.DBAccess.Connection;
 
 namespace Takker.DBAccess
 {
-    /// <summary>DBアクセスのベースクラスを表します。</summary>
+    /// <summary>
+    /// DBとのconnectionを保持する抽象class
+    /// クラスの生存期間とDbConnectionのそれとが一致するように設計されている
+    /// 
+    /// > C++のRAIIと同じ
+    /// </summary>
     public abstract class DbAccessBase : IDbAccess, IDisposable
     {
         /// <summary>データベースのコネクションを表します。</summary>
@@ -37,31 +42,17 @@ namespace Takker.DBAccess
 
         #endregion
 
-        #region コンストラクタ
-
-        /// <summary>デフォルトコンストラクタ。</summary>
-        public DbAccessBase(DbConnectSettingLoaderBase loader) : base()
-            => this.initializeConnection(loader);
-
-        private bool _isDisposed = false; // 重複する呼び出しを検出するには
-        /// <summary>キャッシュした接続文字列を表します。</summary>
-        private static DbConnectionSetting connectionSetting = null;
-        /// <summary>AbstractFactoryを表すIDbAccessHelper。</summary>
-        private static IDbAccessHelper helper = null;
 
         /// <summary>
-        /// 接続を初期化します。
+        /// Default constructor
+        /// 
+        /// Database接続を初期化する
         /// </summary>
-        private void initializeConnection(DbConnectSettingLoaderBase loader)
+        public DbAccessBase()
         {
-            if (connectionSetting == null)
-            {
-                DbConnectSettingLoaderBase settingLoader = loader ?? new DbConnectSettingLoaderBase();
-
-                // キャッシュされていない場合は接続設定ファイルを読み込む
-                connectionSetting = settingLoader.Load() ??
-                    throw new Exception("DBの接続設定ファイルがLoadできません。");
-            }
+            // キャッシュされていない場合は接続設定ファイルを読み込む
+            connectionSetting ??= Factory.SettingLoaderFactory.Create().Load() ??
+                throw new Exception("DBの接続設定ファイルがLoadできません。");
 
             // 接続する設定ファイル番号を取得
             int? num = this.getConnectionNumber();
@@ -72,11 +63,17 @@ namespace Takker.DBAccess
             this.Connection = helper.GetConnection();
         }
 
+
+
         /// <summary>接続対象の設定ファイル番号を取得します。</summary>
         /// <returns>接続対象の設定ファイル番号を表すint?。</returns>
         protected virtual int? getConnectionNumber()
             => null;
 
-        #endregion
+        private bool _isDisposed = false; // 重複する呼び出しを検出するには
+        /// <summary>キャッシュした接続文字列を表します。</summary>
+        private static DbConnectionSetting connectionSetting = null;
+        /// <summary>AbstractFactoryを表すIDbAccessHelper。</summary>
+        private static IDbAccessHelper helper = null;
     }
 }

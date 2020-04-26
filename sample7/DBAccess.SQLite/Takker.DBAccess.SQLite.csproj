@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DBAccess.Helper\DBAccess.Connection.csproj" />
-    <ProjectReference Include="..\Utilities\Utilities.csproj" />
+    <ProjectReference Include="..\DBAccess.Helper\Takker.DBAccess.Connection.csproj" />
+    <ProjectReference Include="..\Utilities\Takker.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DBAccess.Factory\DBAccess.Factory.csproj" />
-    <ProjectReference Include="..\Utilities\Utilities.csproj" />
+    <ProjectReference Include="..\DBAccess.Factory\Takker.DBAccess.Factory.csproj" />
+    <ProjectReference Include="..\Utilities\Takker.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

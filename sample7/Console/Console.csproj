@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DBAccess.Helper\DBAccess.Connection.csproj" />
+    <ProjectReference Include="..\DBAccess.Helper\Takker.DBAccess.Connection.csproj" />
   </ItemGroup>
 
 </Project>

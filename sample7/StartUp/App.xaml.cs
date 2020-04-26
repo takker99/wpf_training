@@ -24,7 +24,6 @@ namespace Sample7.StartUp
         {
             containerRegistry.RegisterSingleton<Setting.IApplicationSetting,Setting.ApplicationSetting>();
             containerRegistry.Register<Services.IService, Services.Service>();
-            containerRegistry.RegisterSingleton<HamburgerMenuService.IService, HamburgerMenuService.Service>();
         }
 
         /// <summary>
@@ -36,7 +35,10 @@ namespace Sample7.StartUp
             // 名前の重複を防ぐために、名前空間を付け加えている
             moduleCatalog.AddModule<Services.Module>(nameof(Services)+nameof(Services.Module),InitializationMode.WhenAvailable);
             moduleCatalog.AddModule<HamburgerMenuService.Module>(nameof(HamburgerMenuService)+nameof(HamburgerMenuService.Module),InitializationMode.WhenAvailable);
+
+            // child windows
             moduleCatalog.AddModule<Regions.Module>(nameof(Regions)+nameof(Regions.Module),InitializationMode.WhenAvailable);
+            //moduleCatalog.AddModule<TaskListPanel.Module>(nameof(TaskListPanel)+nameof(TaskListPanel.Module),InitializationMode.WhenAvailable);
         }
 
         // "...Views.hogehoge.xaml" という View の View Model を "...ViewModels.hogehoge.cs" に自動で設定する

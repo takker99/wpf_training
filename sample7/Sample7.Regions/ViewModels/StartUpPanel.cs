@@ -17,9 +17,6 @@ namespace Sample7.Regions.ViewModels
 		/// <summary>HamburgerMenuのDisplayModeを取得・設定します。</summary>
 		public ReactivePropertySlim<SplitViewDisplayMode> HamburgerMenuDisplayMode { get; set; }
 
-        public AsyncReactiveCommand AddNewTaskCommand { get; }
-
-        public ReactivePropertySlim<string> Content { get; }
 
 
 

@@ -107,11 +107,6 @@ namespace Sample7.StartUp.ViewModels
                     this.regionManager.RequestNavigate("ContentRegion", nameof(Regions.Views.StartUpPanel));
                 })
                 .AddTo(this._disposable);
-
-            this.SelectedMenu = new ReactivePropertySlim<HamburgerMenuItem>(null)
-                .AddTo(this._disposable);
-            this.SelectedOption = new ReactivePropertySlim<HamburgerMenuItem>(null)
-                .AddTo(this._disposable);
         }
 
         /// <summary>
@@ -126,7 +121,7 @@ namespace Sample7.StartUp.ViewModels
         private void _initialilzeMenu()
         {
             this.MenuItems.Add(new HamburgerMenuItem(PackIconKind.BugOutline, "バグ", "BugPanel"));
-            this.MenuItems.Add(new HamburgerMenuItem(PackIconKind.UserOutline, "ユーザ", "UserPanel"));
+            this.MenuItems.Add(new HamburgerMenuItem(PackIconKind.UserOutline, "ユーザ",nameof(TaskListPanel.Views.TaskListPanel)));
             this.MenuItems.Add(new HamburgerMenuItem(PackIconKind.CoffeeOutline, "珈琲", "CoffeePanel"));
             this.MenuItems.Add(new HamburgerMenuItem(PackIconKind.FontAwesome, "サイコー！", "AwesomePanel"));
 

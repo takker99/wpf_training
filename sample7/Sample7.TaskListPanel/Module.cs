@@ -1,7 +1,5 @@
-﻿using Sample7.TaskListPanel.Views;
 using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Regions;
 
 namespace Sample7.TaskListPanel
 {
@@ -14,7 +12,8 @@ namespace Sample7.TaskListPanel
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            // Navigation Regionを登録する
+            containerRegistry.RegisterForNavigation<Views.TaskListPanel>();
         }
     }
 }

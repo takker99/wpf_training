@@ -1,5 +1,3 @@
-using System.Runtime.Serialization;
-
 namespace Takker.DBAccess.Connection
 {
 	#region 列挙型
@@ -24,7 +22,6 @@ namespace Takker.DBAccess.Connection
 	/// <summary>
 	/// DBへの接続情報を表します。
 	/// </summary>
-	[DataContract]
 	public class DbConnectInformation
 	{
 		#region プロパティ
@@ -32,19 +29,16 @@ namespace Takker.DBAccess.Connection
 		/// <summary>
 		/// DBへの接続情報を識別するための番号を取得・設定します。
 		/// </summary>
-		[DataMember]
 		public int Number { get; set; } = 0;
 
 		/// <summary>
 		/// 接続するDBの種類を取得・設定します。
 		/// </summary>
-		[DataMember]
 		public DatabaseType DbType { get; set; } = DatabaseType.None;
 
 		/// <summary>
 		/// 接続先DBのデータソースを取得・設定します。
 		/// </summary>
-		[DataMember]
 		public string DataSource { get; set; } = System.String.Empty;
 
 		#endregion

@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Win32Api\Win32Api.csproj" />
+    <ProjectReference Include="..\Win32Api\Takker.Win32Api.csproj" />
   </ItemGroup>
 
 </Project>

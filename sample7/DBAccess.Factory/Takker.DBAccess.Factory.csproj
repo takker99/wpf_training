@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DBAccess.Helper\DBAccess.Connection.csproj" />
-    <ProjectReference Include="..\DBAccess.SQLite\DBAccess.SQLite.csproj" />
+    <ProjectReference Include="..\DBAccess.Helper\Takker.DBAccess.Connection.csproj" />
+    <ProjectReference Include="..\DBAccess.SQLite\Takker.DBAccess.SQLite.csproj" />
   </ItemGroup>
 
 </Project>
