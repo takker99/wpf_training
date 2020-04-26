@@ -53,6 +53,7 @@ namespace Sample7.Entities
             this.TaskId = new ReactivePropertySlim<int>(taskId);
             this.Tags = new ObservableCollection<string>(tags);
             this.Length = new ReactivePropertySlim<TimeSpan?>(length);
+            this.End = new ReactivePropertySlim<DateTimeOffset?>(null);
             this.Location = new ReactivePropertySlim<string?>(location);
             this.CreatedAt = new ReactivePropertySlim<DateTimeOffset>(createdAt);
             this.UpdatedAt = new ReactivePropertySlim<DateTimeOffset>(updatedAt);

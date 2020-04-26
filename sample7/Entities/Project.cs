@@ -51,6 +51,8 @@ namespace Sample7.Entities
         {
             this.Name = new ReactivePropertySlim<string>(name);
             this.References = new ObservableCollection<string>(references);
+            this.Tags = new ObservableCollection<string>();
+            this.Tasks = new ObservableCollection<int>();
             this.Begin = new ReactivePropertySlim<DateTimeOffset?>(begin);
             this.Length = new ReactivePropertySlim<TimeSpan?>(length);
             this.Status = new ReactivePropertySlim<ActionStatus>(status);
