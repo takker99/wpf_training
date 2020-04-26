@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Behaviors\Behaviors.csproj" />
-    <ProjectReference Include="..\HamburgerMenuService\HamburgerMenuService.csproj" />
     <ProjectReference Include="..\Sample7.Regions\Sample7.Regions.csproj" />
     <ProjectReference Include="..\Sample7.Setting\Sample7.Setting.csproj" />
     <ProjectReference Include="..\Sample7.TaskListPanel\Sample7.TaskListPanel.csproj" />

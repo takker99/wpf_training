@@ -34,7 +34,7 @@ namespace Sample7.StartUp
         {
             // 名前の重複を防ぐために、名前空間を付け加えている
             moduleCatalog.AddModule<Services.Module>(nameof(Services)+nameof(Services.Module),InitializationMode.WhenAvailable);
-            moduleCatalog.AddModule<HamburgerMenuService.Module>(nameof(HamburgerMenuService)+nameof(HamburgerMenuService.Module),InitializationMode.WhenAvailable);
+            //moduleCatalog.AddModule<HamburgerMenuService.Module>(nameof(HamburgerMenuService)+nameof(HamburgerMenuService.Module),InitializationMode.WhenAvailable);
 
             // child windows
             moduleCatalog.AddModule<Regions.Module>(nameof(Regions)+nameof(Regions.Module),InitializationMode.WhenAvailable);
